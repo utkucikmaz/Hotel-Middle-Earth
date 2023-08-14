@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this.showName();
-        this.hotel = null;
+        this.hotel = [];
         this.visitorsArr = [];
         this.visitorCounts = {
             elves: 0,
@@ -39,7 +39,6 @@ class Game {
 
         // const nameForm = document.getElementById("nameForm");
         // nameForm.style.display = "none";
-
         this.hotel = new Hotels("0", "0");
         this.hotel = new Hotels("30", "0");
         this.hotel = new Hotels("60", "0");
@@ -58,41 +57,42 @@ class Game {
         // const nameInput = document.getElementById("nameInput");
         // const userName = nameInput.value.trim().toUpperCase();
 
-        // function randomizeColor() {
-        //     const red = Math.floor(Math.random() * 256);
-        //     const green = Math.floor(Math.random() * 256);
-        //     const blue = Math.floor(Math.random() * 256);
-        //     return `rgb(${red},${green},${blue})`;
-        // }
         const updateVisitorCount = (type) => {
             console.log("Visitor Counts:", this.visitorCounts);
             return this.visitorCounts[type]++;
         };
+
         const visitorsCreate = setInterval(() => {
-            const newVisitor = new Visitors();
+            var newVisitor = new Visitors(this);
             visitorsArr.push(newVisitor);
             updateVisitorCount(newVisitor.type);
             score++;
             scoreDisplay.textContent = `Score: ${score}`;
-        }, 3000);
+        }, 2000);
 
         const visitorsMove = setInterval(() => {
             visitorsArr.forEach((visitorInstance) => {
                 visitorInstance.moveDown();
-                console.log(visitorInstance);
-                //if (visitorInstance.positionY + visitorInstance.height < 0) {
-                //    visitorInstance.domElement.remove();
-                //}
             });
-        }, 50);
+        }, 100);
+
+        function cleaning() {
+            clearInterval(visitorsCreate);
+            const grouppedItems = document.querySelectorAll("#visitor");
+            grouppedItems.addEventListener("click", () => {
+                grouppedItems.forEach((item) => {
+                    if (item.className === "human") {
+                        this.hotel.push(item);
+                    }
+                });
+            });
+        }
+        console.log(this.hotel);
     }
 }
 class Hotels {
     constructor(positionX, positionY) {
-        this.hotel1 = [];
-        this.hotel2 = [];
-        this.hotel3 = [];
-        this.hotel4 = [];
+        this.hotel = [];
         this.width = 10;
         this.height = 10;
         this.positionX = positionX;
@@ -119,12 +119,14 @@ class Visitors {
         this.width = 10;
         this.height = 10;
         this.positionX = Math.floor(Math.random() * (100 - this.width + 1));
-        this.positionY = 100 - this.height;
+        this.positionY = Math.floor(
+            Math.random() * (100 - this.height - this.height + 1) + this.height
+        );
         this.createDomElement();
     }
 
     createDomElement() {
-        this.domElement = document.createElement("div");
+        this.domElement = document.createElement("button");
         this.domElement.setAttribute("id", "visitor");
         //this.domElement.getElementById("visitor");
         this.domElement.style.width = this.width + "vw";
@@ -151,12 +153,18 @@ class Visitors {
             this.domElement.className = "goblin";
         }
     }
-
     moveDown() {
-        this.positionY--;
         this.domElement.style.bottom = this.positionY + "vh";
+        this.domElement.style.left = this.positionX + "vw";
+        this.domElement.addEventListener("click", () => {
+            this.positionX = 60;
+            this.positionY = 0;
+        });
     }
 }
+
+this.game = new Game();
+
 document.addEventListener("DOMContentLoaded", () => {
-    new Game();
+    this.game;
 });
