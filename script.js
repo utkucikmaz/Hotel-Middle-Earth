@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this.showName();
-        this.hotel = [];
+        this.room = [];
         this.visitorsArr = [];
         this.visitorCounts = {
             elves: 0,
@@ -48,6 +48,7 @@ class Game {
     }
     initGameLogic() {
         let score = 0;
+        const room = [];
         const visitorsArr = [];
 
         const parentElm = document.getElementById("board");
@@ -63,7 +64,7 @@ class Game {
         };
 
         const visitorsCreate = setInterval(() => {
-            var newVisitor = new Visitors(this);
+            const newVisitor = new Visitors(this);
             visitorsArr.push(newVisitor);
             updateVisitorCount(newVisitor.type);
             score++;
@@ -74,25 +75,24 @@ class Game {
             visitorsArr.forEach((visitorInstance) => {
                 visitorInstance.moveDown();
             });
-        }, 100);
+        }, 50);
 
         function cleaning() {
-            clearInterval(visitorsCreate);
-            const grouppedItems = document.querySelectorAll("#visitor");
-            grouppedItems.addEventListener("click", () => {
-                grouppedItems.forEach((item) => {
-                    if (item.className === "human") {
-                        this.hotel.push(item);
-                    }
-                });
+            visitorsArr.forEach((visitorItem) => {
+                if (visitorItem.type === "human") {
+                    room.push(visitorItem);
+                    console.log(visitorItem);
+                    visitorItem.addEventListener("click", function () {
+                        clearInterval(visitorsCreate);
+                    });
+                }
             });
         }
-        console.log(this.hotel);
+        cleaning();
     }
 }
 class Hotels {
     constructor(positionX, positionY) {
-        this.hotel = [];
         this.width = 10;
         this.height = 10;
         this.positionX = positionX;
