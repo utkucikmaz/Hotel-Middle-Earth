@@ -2,6 +2,8 @@ class Game {
     constructor() {
         this.showName();
         this.room = [];
+        this.score = 0;
+        this.health = 5;
         this.visitorsArr = [];
         this.visitorCounts = {
             elves: 0,
@@ -9,6 +11,10 @@ class Game {
             orgs: 0,
             goblins: 0,
         };
+        this.currentVisitorType = null;
+        this.isDarkVersionActive = false;
+        this.scoreDisplay = null;
+        this.healthDisplay = this.health;
     }
 
     showName() {
@@ -31,29 +37,53 @@ class Game {
     }
     startGame() {
         const nameInput = document.getElementById("nameInput");
-        const userName = nameInput.value.trim().toUpperCase();
+        this.userName = nameInput.value.trim().toUpperCase();
 
-        if (userName === "") {
+        if (this.userName === "") {
             alert("Please enter a valid name.");
             return;
         }
 
+        localStorage.setItem("this.userName", this.userName);
+        localStorage.setItem("score", 0);
+
         const nameForm = document.getElementById("nameForm");
         nameForm.style.display = "none";
+
         this.hotel = new Hotels("0", "0");
         this.hotel = new Hotels("30", "0");
         this.hotel = new Hotels("60", "0");
         this.hotel = new Hotels("90", "0");
 
+        const storedUserName = localStorage.getItem("userName");
+        if (storedUserName) {
+            console.log("Stored userName:", storedUserName);
+        } else {
+            console.log("userName not found in local storage.");
+        }
+
+        // const storedScore = localStorage.getItem("score");
+        // if (storedScore !== null) {
+        //     console.log("Stored score:", parseInt(storedScore));
+        // } else {
+        //     console.log("Score not found in local storage.");
+        // }
+
         this.createVisitors();
     }
     createVisitors() {
-        let score = 0;
-
         const parentElm = document.getElementById("board");
+
         const scoreDisplay = document.createElement("span");
         scoreDisplay.id = "scoreDisplay";
         parentElm.appendChild(scoreDisplay);
+        this.scoreDisplay = scoreDisplay;
+
+        const healthDisplay = document.createElement("span");
+        healthDisplay.id = "healthDisplay";
+        parentElm.appendChild(healthDisplay);
+        this.healthDisplay = healthDisplay;
+
         const nameInput = document.getElementById("nameInput");
         const userName = nameInput.value.trim().toUpperCase();
 
@@ -62,8 +92,6 @@ class Game {
                 const newVisitor = new Visitors(this);
                 this.visitorsArr.push(newVisitor);
                 updateVisitorCount(newVisitor.type);
-                score++;
-                scoreDisplay.textContent = `Score: ${score}`;
             }
         };
         const updateVisitorCount = (type) => {
@@ -71,19 +99,12 @@ class Game {
             return this.visitorCounts[type]++;
         };
 
-        const visitorsMove = setInterval(() => {
-            this.visitorsArr.forEach((visitorInstance) => {
-                visitorInstance.moveDown();
-            });
-        }, 50);
-
         const cleanUpVisitors = () => {
             this.visitorsArr.forEach((visitor) => {
-                parentElm.removeChild(visitor.domElement); // Remove visitor DOM element
+                parentElm.removeChild(visitor.domElement);
             });
-            this.visitorsArr = []; // Clear the visitors array
+            this.visitorsArr = [];
         };
-
         const generateAndClean = () => {
             generateVisitors();
             setTimeout(() => {
@@ -91,17 +112,134 @@ class Game {
             }, 5000);
         };
 
-        generateAndClean();
-        setInterval(generateAndClean, 10000); // Call the function every 10 seconds (5s for generation + 5s for cleaning)
+        const darkSide = () => {
+            generateAndClean();
+            this.interval2 = setInterval(generateAndClean, 10000);
+
+            const darkTimeoutId = setTimeout(() => {
+                this.darkVersion();
+            }, 19000);
+        };
+
+        darkSide();
+        this.interval1 = setInterval(darkSide, 40000);
+    }
+    darkVersion() {
+        const newBackground = document.getElementById("board");
+        newBackground.style.backgroundColor = this.isDarkVersionActive
+            ? "gray"
+            : "purple";
+        this.isDarkVersionActive = !this.isDarkVersionActive;
+
+        setTimeout(() => {
+            newBackground.style.backgroundColor = "gray";
+            this.isDarkVersionActive = false;
+        }, 20000);
     }
     handleVisitorClick(visitor) {
-        this.room.push(visitor);
+        if (visitor.type === "humans" || visitor.type === "elves") {
+            this.room.push(visitor);
+            this.score++;
+        } else {
+            this.room.pop(visitor);
+            this.score--;
+            this.health--;
+        }
+
+        localStorage.setItem("score", this.score.toString());
+        this.updateScoreDisplay();
+        this.updateHealthDisplay();
+        this.finishGame();
+
         console.log(
             "Types in room:",
             this.room.map((visitor) => visitor.type)
         );
     }
+    handleVisitorClickEvil(visitor) {
+        if (visitor.type === "orgs" || visitor.type === "goblins") {
+            this.room.push(visitor);
+            this.score++;
+        } else {
+            this.room.pop(visitor);
+            this.score--;
+            this.health--;
+        }
+
+        localStorage.setItem("score", this.score.toString());
+        this.updateScoreDisplay();
+        this.updateHealthDisplay();
+        this.finishGame();
+
+        console.log(
+            "Types in room:",
+            this.room.map((visitor) => visitor.type)
+        );
+    }
+    updateScoreDisplay() {
+        this.scoreDisplay.textContent = `Score: ${this.score}`;
+    }
+    updateHealthDisplay() {
+        this.healthDisplay.textContent = `Health: ${this.health}`;
+    }
+    gameOver() {
+        clearInterval(this.generateAndCleanInterval); // Clear the interval for visitor generation
+        clearInterval(this.darkSideInterval);
+        clearInterval(this.interval1);
+        clearInterval(this.interval2);
+        // const gameOverGif = document.createElement("img");
+        // gameOverGif.className = "over-gif";
+        // gameOverGif.setAttribute("src", "./images/erdogan-over.gif");
+        // gameOverGif.setAttribute("alt", "beautiful image of jail");
+
+        const parentElm = document.getElementById("board");
+
+        this.visitorsArr.forEach((visitor) => {
+            if (
+                visitor.domElement &&
+                visitor.domElement.parentNode === parentElm
+            ) {
+                parentElm.removeChild(visitor.domElement);
+            }
+        });
+        parentElm.innerHTML = "";
+
+        const gameOverGif = document.createElement("div");
+        gameOverGif.className = "over-gif";
+
+        const gameOverDiv = document.createElement("p");
+        gameOverDiv.className = "game-over";
+        gameOverDiv.innerText = `
+			You Lost :(
+
+		${this.userName} Has ${this.score} `;
+
+        parentElm.appendChild(gameOverDiv);
+
+        const restartDiv = document.createElement("p");
+        restartDiv.className = "restart";
+        restartDiv.innerText = "Press space to restart";
+
+        gameOverDiv.appendChild(gameOverGif);
+        gameOverDiv.appendChild(restartDiv);
+
+        this.visitorsArr.forEach((element) => {
+            element.domElement.remove();
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === " ") {
+                location.assign("index.html");
+            }
+        });
+    }
+    finishGame() {
+        if (this.health === 0) {
+            return this.gameOver();
+        }
+    }
 }
+
 class Hotels {
     constructor(positionX, positionY) {
         this.width = 10;
@@ -148,10 +286,16 @@ class Visitors {
         this.domElement.style.bottom = this.positionY + "vh";
 
         parentElm.appendChild(this.domElement);
-        const self = this;
 
+        const self = this;
         this.domElement.addEventListener("click", function () {
-            self.game.handleVisitorClick(self);
+            if (self.game.isDarkVersionActive) {
+                self.game.handleVisitorClickEvil(self);
+                self.startMoving();
+            } else {
+                self.game.handleVisitorClick(self);
+                self.startMoving();
+            }
         });
 
         let randomNumber = Math.floor(Math.random() * 4) + 1;
@@ -170,13 +314,51 @@ class Visitors {
             this.domElement.className = "goblin";
         }
     }
-    moveDown() {
+    moveDownGood() {
         this.domElement.style.bottom = this.positionY + "vh";
         this.domElement.style.left = this.positionX + "vw";
-        this.domElement.addEventListener("click", () => {
+        if (this.type === "humans") {
             this.positionX = 60;
             this.positionY = 0;
-        });
+        } else if (this.type === "elves") {
+            this.positionX = 90;
+            this.positionY = 0;
+        } else if (this.type === "goblins") {
+            this.positionX = 60;
+            this.positionY = 0;
+        } else if (this.type === "orgs") {
+            this.positionX = 90;
+            this.positionY = 0;
+        }
+    }
+    moveDownEvil() {
+        this.domElement.style.bottom = this.positionY + "vh";
+        this.domElement.style.left = this.positionX + "vw";
+        if (this.type === "humans") {
+            this.positionX = 0;
+            this.positionY = 0;
+        } else if (this.type === "elves") {
+            this.positionX = 30;
+            this.positionY = 0;
+        } else if (this.type === "goblins") {
+            this.positionX = 0;
+            this.positionY = 0;
+        } else if (this.type === "orgs") {
+            this.positionX = 30;
+            this.positionY = 0;
+        }
+    }
+    startMoving() {
+        const self = this;
+        if (this.game.isDarkVersionActive) {
+            setInterval(() => {
+                self.moveDownEvil();
+            }, 50);
+        } else {
+            setInterval(() => {
+                self.moveDownGood(); // Call the method to change position
+            }, 50);
+        }
     }
 }
 
