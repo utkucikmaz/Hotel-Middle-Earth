@@ -564,7 +564,7 @@ class Visitors {
             this.domElement.setAttribute("src", "./images/goblin.png");
         }
 
-        let randomUniqueNumber = Math.floor(Math.random() * 50) + 1;
+        let randomUniqueNumber = Math.floor(Math.random() * 24) + 1;
 
         if (randomUniqueNumber === 4 && !this.game.hasRing) {
             this.ring = document.createElement("img");
@@ -586,7 +586,7 @@ class Visitors {
             this.domElement.setAttribute("src", "./images/gandalf.png");
         }
 
-        let randomGollumNumber = Math.floor(Math.random() * 9) + 1;
+        let randomGollumNumber = Math.floor(Math.random() * 5) + 1;
         if (randomGollumNumber === 1) {
             this.gollum = document.createElement("img");
             parentElm.appendChild(this.gollum);
