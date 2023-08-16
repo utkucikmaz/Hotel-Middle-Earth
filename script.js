@@ -36,8 +36,7 @@ class Game {
         nameForm.innerHTML = `
         	<label for="nameInput">Hotel Middle Earth</label>
         	<br/>
-            <p id="your-name" >Please enter your name</p>
-            <input type="text" id="nameInput" placeholder="Your name" required>
+            <input type="text" id="nameInput" placeholder="Please enter your name" required>
         	<br/>
             <input id="submit-btn" type="submit" value="Start Game">`;
 
@@ -354,7 +353,6 @@ class Game {
 
     stopBackgroundMusic() {
         this.backgroundMusic.pause();
-        this.backgroundMusic.currentTime = 0; // Reset the audio to the beginning
     }
 
     gameOver() {
