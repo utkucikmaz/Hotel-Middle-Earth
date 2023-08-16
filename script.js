@@ -22,8 +22,9 @@ class Game {
         nameForm.id = "nameForm";
         nameForm.style.backgroundColor = "purple";
         nameForm.innerHTML = `
-        	<label for="nameInput">Enter your name</label>
+        	<label for="nameInput">Hotel Middle Earth</label>
         	<br/>
+            <p id="your-name" >Please enter your name</p>
             <input type="text" id="nameInput" placeholder="Your name" required>
         	<br/>
             <input id="submit-btn" type="submit" value="Start Game">`;
@@ -50,7 +51,8 @@ class Game {
         const instructionsContainer = document.createElement("div");
         instructionsContainer.id = "instructionsContainer";
         instructionsContainer.innerHTML = `
-        <p id="instruction-title">Welcome to the game! Here are the instructions:</p>
+        <p id="instruction-title">Welcome to the Hotel Middle Earth!</p>
+        <p id="instruction-title">Here are the instructions</p>
         <ul id="instruction-list">
             <li>Collect elves and humans to score points.</li>
             <li>Avoid orgs and goblins to maintain your health.</li>
@@ -146,12 +148,12 @@ class Game {
             generateVisitors();
             setTimeout(() => {
                 cleanUpVisitors();
-            }, 5000);
+            }, 2000);
         };
 
         const darkSide = () => {
             generateAndClean();
-            this.interval2 = setInterval(generateAndClean, 10000);
+            this.interval2 = setInterval(generateAndClean, 4000);
 
             const darkTimeoutId = setTimeout(() => {
                 this.darkVersion();

@@ -119,12 +119,18 @@ body {
 }
 #nameInput {
     background-color: #fff;
-    width: 30vw;
+    width: 60vw;
     height: 5vh;
     border-radius: 0.5vw;
     text-align: center;
-    margin-top: 10vh;
+    padding-top: 0;
+    margin-top: 0;
     opacity: 1;
+}
+#your-name {
+    margin: 10vh 0 0 0;
+    padding: 0;
+    font-size: 2vh;
 }
 #instructions-button {
     position: absolute;
@@ -138,7 +144,7 @@ body {
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    border: 0.2rem solid red;
+    border: 0.2rem solid #fff;
 }
 #instructions-button:hover {
     transition: 0.2s;
@@ -166,7 +172,7 @@ body {
     line-height: 4vh;
     color: #fff;
     font-size: 2vw;
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 #backButton {
     position: absolute;
