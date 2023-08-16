@@ -12,7 +12,7 @@ body {
     background-size: cover;
     background-position: center center;
     z-index: 0;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.85);
 }
 #dark-mode {
     height: 100vh;
@@ -83,6 +83,72 @@ body {
     height: 15vh;
     width: auto;
 }
+.gandalf {
+    background-color: transparent;
+    height: 15vh;
+    width: auto;
+}
+.sauron {
+    background-color: transparent;
+    height: 15vh;
+    width: auto;
+}
+.ring {
+    background-color: transparent;
+    height: 3vh;
+    width: auto;
+}
+.gollum {
+    background-color: transparent;
+    height: 10vh;
+    width: auto;
+}
+#sauron-won {
+    padding: 3vh 0;
+    display: block;
+    margin-left: 20vw;
+    width: 60vw;
+    height: auto;
+}
+.sauron-class {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(60, 18, 18);
+    position: absolute;
+    font-size: 3vw;
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+}
+#gandalf-won {
+    padding: 3vh 0;
+    display: block;
+    margin-left: 20vw;
+    width: 60vw;
+    height: auto;
+}
+.gandalf-class {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(14, 67, 41);
+    position: absolute;
+    font-size: 2.5vw;
+    line-height: 5vh;
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+}
+.over-gif {
+    padding: 3vh 0;
+    display: block;
+    margin-left: 20vw;
+    width: 60vw;
+    height: auto;
+}
 
 #healthDisplay {
     margin-left: 1vw;
@@ -106,11 +172,23 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: rgb(155, 15, 15);
+    background-color: rgb(0, 0, 0);
     position: absolute;
     font-size: 3vw;
     color: #fff;
     text-align: center;
+    z-index: 1;
+}
+#ring-image {
+    width: 2vw;
+    height: auto;
+    left: 50vw;
+    padding-top: 1vh;
+    position: absolute;
+    text-align: center;
+}
+.over-title {
+    font-size: 4vw;
 }
 .restart {
     font-size: 2vw;
@@ -118,9 +196,6 @@ body {
     position: relative;
     bottom: 0;
 }
-/* .over-gif {
-    
-} */
 
 #nameForm {
     background-image: url(../images/name.gif);
