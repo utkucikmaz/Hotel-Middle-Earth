@@ -54,7 +54,23 @@ body {
 .goblin {
     background-color: red;
 }
+#healthDisplay {
+    margin-left: 1vw;
+    color: #fff;
+    text-align: center;
+    font-size: 2vw;
+}
+#heart-image {
+    width: 1vw;
+    height: 1vh;
+}
 
+#scoreDisplay {
+    margin-right: 1vw;
+    color: #fff;
+    font-size: 1.5vw;
+    text-align: center;
+}
 .game-over {
     width: 100vw;
     height: 100vh;
@@ -97,7 +113,7 @@ body {
     margin-top: 5vh;
 }
 #nameForm > #submit-btn:hover {
-    transition: 0.7s;
+    transition: 0.2s;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
         0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
@@ -109,6 +125,67 @@ body {
     text-align: center;
     margin-top: 10vh;
     opacity: 1;
+}
+#instructions-button {
+    position: absolute;
+    display: block;
+    text-align: center;
+    width: 30vw;
+    height: 5vh;
+    margin-top: 5vh;
+    left: 35vw;
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 0.2rem solid red;
+}
+#instructions-button:hover {
+    transition: 0.2s;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+#instructionsContainer {
+    background-color: darkgreen;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#instruction-title {
+    text-align: center;
+    color: #fff;
+    font-size: 4vw;
+}
+#instruction-list {
+    list-style: disc;
+    list-style-position: inside;
+    text-align: center;
+    line-height: 4vh;
+    color: #fff;
+    font-size: 2vw;
+    margin-top: 10vh;
+}
+#backButton {
+    position: absolute;
+    display: block;
+    text-align: center;
+    width: 30vw;
+    height: 5vh;
+    margin-top: 5vh;
+    left: 35vw;
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 0.2rem solid red;
+}
+#backButton:hover {
+    transition: 0.2s;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 /* @media screen and (min-width: 601px) {
     #button-up,

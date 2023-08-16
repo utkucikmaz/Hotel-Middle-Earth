@@ -30,11 +30,48 @@ class Game {
 
         const parentElm = document.getElementById("board");
         parentElm.appendChild(nameForm);
+
+        const instructionsButton = document.createElement("button");
+        instructionsButton.id = "instructions-button";
+        instructionsButton.textContent = "Instructions";
+        instructionsButton.addEventListener("click", () => {
+            this.showInstructions();
+        });
+        nameForm.appendChild(instructionsButton);
+
         nameForm.addEventListener("submit", (event) => {
             event.preventDefault();
             this.startGame();
         });
     }
+
+    showInstructions() {
+        const parentElm = document.getElementById("board");
+        const instructionsContainer = document.createElement("div");
+        instructionsContainer.id = "instructionsContainer";
+        instructionsContainer.innerHTML = `
+        <p id="instruction-title">Welcome to the game! Here are the instructions:</p>
+        <ul id="instruction-list">
+            <li>Collect elves and humans to score points.</li>
+            <li>Avoid orgs and goblins to maintain your health.</li>
+            <li>Dark mode will activate periodically, be cautious!</li>
+        </ul>
+        <button id="backButton">Back</button>
+    `;
+
+        parentElm.innerHTML = ""; // Clear existing content
+        parentElm.appendChild(instructionsContainer); // Append the instructions container
+
+        const backButton = instructionsContainer.querySelector("#backButton");
+        backButton.addEventListener("click", () => {
+            this.showName();
+            this.visitorsArr.forEach((visitor) => {
+                parentElm.removeChild(visitor.domElement);
+            });
+            parentElm.removeChild(instructionsContainer);
+        });
+    }
+
     startGame() {
         const nameInput = document.getElementById("nameInput");
         this.userName = nameInput.value.trim().toUpperCase();
@@ -180,7 +217,19 @@ class Game {
         this.scoreDisplay.textContent = `Score: ${this.score}`;
     }
     updateHealthDisplay() {
-        this.healthDisplay.textContent = `Health: ${this.health}`;
+        const heartImage = document.createElement("img");
+        heartImage.setAttribute("src", "./images/heart.png");
+        heartImage.setAttribute("alt", "beautiful image of the life");
+        heartImage.id = "heart-image";
+
+        this.healthDisplay.innerHTML = "";
+
+        this.healthDisplay.appendChild(heartImage);
+
+        const heartCounter = this.health;
+        this.healthDisplay.appendChild(
+            document.createTextNode(` ${heartCounter}`)
+        );
     }
     gameOver() {
         clearInterval(this.generateAndCleanInterval); // Clear the interval for visitor generation
