@@ -61,8 +61,8 @@ class Game {
         <button id="backButton">Back</button>
     `;
 
-        parentElm.innerHTML = ""; // Clear existing content
-        parentElm.appendChild(instructionsContainer); // Append the instructions container
+        parentElm.innerHTML = "";
+        parentElm.appendChild(instructionsContainer);
 
         const backButton = instructionsContainer.querySelector("#backButton");
         backButton.addEventListener("click", () => {
@@ -234,10 +234,11 @@ class Game {
         );
     }
     gameOver() {
-        clearInterval(this.generateAndCleanInterval); // Clear the interval for visitor generation
+        clearInterval(this.generateAndCleanInterval);
         clearInterval(this.darkSideInterval);
         clearInterval(this.interval1);
         clearInterval(this.interval2);
+
         // const gameOverGif = document.createElement("img");
         // gameOverGif.className = "over-gif";
         // gameOverGif.setAttribute("src", "./images/erdogan-over.gif");
@@ -407,7 +408,7 @@ class Visitors {
             }, 50);
         } else {
             setInterval(() => {
-                self.moveDownGood(); // Call the method to change position
+                self.moveDownGood();
             }, 50);
         }
     }
