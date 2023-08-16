@@ -20,6 +20,14 @@ class Game {
         this.darkWinsArr = [];
         this.goodWinsArr = [];
         this.hasRing = false;
+        this.backgroundMusic = document.getElementById("backgroundMusic");
+        this.backgroundMusic.volume = 0.3;
+        this.badSound = document.getElementById("bad-sound");
+        this.goodSound = document.getElementById("good-sound");
+        this.gollumSound = document.getElementById("gollum-sound");
+        this.gandalfSound = document.getElementById("gandalf-sound");
+        this.sauronSound = document.getElementById("sauron-sound");
+        this.ringSound = document.getElementById("ring-sound");
     }
 
     showName() {
@@ -47,6 +55,7 @@ class Game {
         nameForm.addEventListener("submit", (event) => {
             event.preventDefault();
             this.startGame();
+            this.startBackgroundMusic();
         });
     }
 
@@ -197,18 +206,22 @@ class Game {
         if (visitor.type === "human" || visitor.type === "elf") {
             this.room.push(visitor);
             this.score++;
+            this.goodSound.play();
         } else if (visitor.type === "org" || visitor.type === "goblin") {
             this.room.pop(visitor);
             this.score--;
             this.health--;
+            this.badSound.play();
         } else if (
             visitor.type === "gandalf" &&
             this.goodWinsArr.includes("ring")
         ) {
+            this.gandalfSound.play();
             this.score += 100;
             this.goodWinsArr.push(visitor);
             this.gandalfWins();
         } else if (visitor.type === "ring" && this.goodWinsArr.length === 0) {
+            this.ringSound.play();
             this.goodWinsArr.push("ring");
             this.hasRing = true;
         } else if (
@@ -217,13 +230,16 @@ class Game {
         ) {
             this.darkWinsArr.pop("ring");
             this.hasRing = false;
+            this.gollumSound.play();
         } else if (
             visitor.type === "gollum" &&
             this.goodWinsArr.includes("ring")
         ) {
             this.goodWinsArr.pop("ring");
             this.hasRing = false;
+            this.gollumSound.play();
         } else if (visitor.type === "sauron") {
+            this.sauronSound.play();
             this.score -= 20;
             this.health -= 2;
         }
@@ -247,18 +263,22 @@ class Game {
         if (visitor.type === "org" || visitor.type === "goblin") {
             this.room.push(visitor);
             this.score++;
+            this.badSound.play();
         } else if (visitor.type === "human" || visitor.type === "elf") {
             this.room.pop(visitor);
             this.score--;
             this.health--;
+            this.goodSound.play();
         } else if (
             visitor.type === "sauron" &&
             this.darkWinsArr.includes("ring")
         ) {
+            this.sauronSound.play();
             this.score += 100;
             this.darkWinsArr.push(visitor);
             this.sauronWins();
         } else if (visitor.type === "ring" && this.darkWinsArr.length === 0) {
+            this.ringSound.play();
             this.darkWinsArr.push("ring");
             this.hasRing = true;
         } else if (
@@ -267,13 +287,16 @@ class Game {
         ) {
             this.darkWinsArr.pop("ring");
             this.hasRing = false;
+            this.gollumSound.play();
         } else if (
             visitor.type === "gollum" &&
             this.goodWinsArr.includes("ring")
         ) {
             this.goodWinsArr.pop("ring");
             this.hasRing = false;
+            this.gollumSound.play();
         } else if (visitor.type === "gandalf") {
+            this.gandalfSound.play();
             this.score -= 20;
             this.health -= 2;
         }
@@ -325,6 +348,15 @@ class Game {
             document.createTextNode(` ${heartCounter}`)
         );
     }
+    startBackgroundMusic() {
+        this.backgroundMusic.play();
+    }
+
+    stopBackgroundMusic() {
+        this.backgroundMusic.pause();
+        this.backgroundMusic.currentTime = 0; // Reset the audio to the beginning
+    }
+
     gameOver() {
         clearInterval(this.interval1);
         clearInterval(this.interval2);
