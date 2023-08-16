@@ -4,28 +4,23 @@ body {
 }
 
 #board {
-    background-size: 20vh;
-    background-color: rgb(180, 123, 123);
-    background-repeat: repeat;
     height: 100vh;
     width: 100vw;
     position: relative;
     overflow: hidden;
+    background-image: url(../images/bcg.jpg);
+    background-size: cover;
+    background-position: center center;
+    z-index: 0;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.7);
 }
-#board::before {
-    content: "";
-    background-color: aqua;
-    background-size: 20vh;
-    background-repeat: repeat;
+#dark-mode {
+    height: 100vh;
+    width: 100vw;
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.2;
-    pointer-events: none;
+    background-size: cover;
+    background-position: center center;
 }
-
 #scoreDisplay {
     color: #fff;
     position: absolute;
@@ -34,26 +29,61 @@ body {
 
 #visitor {
     position: absolute;
-    border-radius: 5px;
+    border-radius: 10px;
 }
-#hotel {
+#hotel-container {
     position: absolute;
-    border-radius: 5px;
-    background-color: aquamarine;
+    width: 100vw;
+    height: 20vh;
+    bottom: 0;
+}
+#hotel1 {
+    position: absolute;
+    height: 20vh;
+    width: auto;
+    left: 0;
+}
+#hotel2 {
+    position: absolute;
+    height: 20vh;
+    width: auto;
+    left: 25vw;
+}
+#hotel3 {
+    position: absolute;
+    height: 20vh;
+    width: auto;
+    left: 50vw;
+}
+#hotel4 {
+    position: absolute;
+    height: 20vh;
+    width: auto;
+    left: 80vw;
 }
 
 .elvish {
-    background-color: green;
+    background-color: transparent;
+    height: 15vh;
+    width: auto;
+    box-shadow: inset 0 0 1px rgba(72, 255, 0, 0.135);
 }
 .human {
-    background-color: blue;
+    background-color: transparent;
+    height: 20vh;
+    width: auto;
 }
 .org {
-    background-color: black;
+    background-color: transparent;
+    height: 15vh;
+    width: auto;
 }
 .goblin {
-    background-color: red;
+    background-color: transparent;
+    height: 15vh;
+    width: auto;
 }
+
 #healthDisplay {
     margin-left: 1vw;
     color: #fff;
@@ -93,7 +123,9 @@ body {
 } */
 
 #nameForm {
-    background-color: rgb(66, 255, 42);
+    background-image: url(../images/name.gif);
+    background-size: cover;
+    background-position: center center;
     width: 100vw;
     height: 100vh;
     font-size: 10vw;
@@ -106,10 +138,11 @@ body {
     width: 50vw;
     height: 10vh;
     border-radius: 1vw;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.305);
     font-size: 1rem;
-    color: #fff;
-    border: 5px solid #fff;
+    color: #373981;
+    font-weight: bold;
+    border: 0.3rem solid #373981;
     margin-top: 5vh;
 }
 #nameForm > #submit-btn:hover {
@@ -118,9 +151,12 @@ body {
         0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 #nameInput {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.305);
     width: 60vw;
     height: 5vh;
+    font-weight: bold;
+    color: #000000;
+    border: 0.2rem solid #fff;
     border-radius: 0.5vw;
     text-align: center;
     padding-top: 0;
@@ -136,15 +172,15 @@ body {
     position: absolute;
     display: block;
     text-align: center;
+    font-weight: bold;
     width: 30vw;
     height: 5vh;
     margin-top: 5vh;
     left: 35vw;
-    background-color: transparent;
-    color: #fff;
+    background-color: rgba(255, 255, 255, 0.366);
+    color: #000000;
     text-decoration: none;
     border-radius: 5px;
-    border: 0.2rem solid #fff;
 }
 #instructions-button:hover {
     transition: 0.2s;
@@ -193,40 +229,3 @@ body {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
         0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
-/* @media screen and (min-width: 601px) {
-    #button-up,
-    #button-down,
-    #button-left,
-    #button-right {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    #button-up,
-    #button-down,
-    #button-left,
-    #button-right {
-        width: 3.5vw;
-        height: 3.5vh;
-        color: #000;
-        background-color: #fff;
-        position: fixed;
-    }
-    #button-up {
-        left: 48.5vw;
-        bottom: 7vh;
-    }
-    #button-down {
-        left: 48.5vw;
-        bottom: 0vh;
-    }
-    #button-left {
-        left: 45vw;
-        bottom: 3.5vh;
-    }
-    #button-right {
-        left: 52vw;
-        bottom: 3.5vh;
-    }
-} */

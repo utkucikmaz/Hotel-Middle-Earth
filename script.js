@@ -4,6 +4,7 @@ class Game {
         this.room = [];
         this.score = 0;
         this.health = 5;
+        this.hotelsArray = [];
         this.visitorsArr = [];
         this.visitorCounts = {
             elves: 0,
@@ -20,7 +21,6 @@ class Game {
     showName() {
         const nameForm = document.createElement("form");
         nameForm.id = "nameForm";
-        nameForm.style.backgroundColor = "purple";
         nameForm.innerHTML = `
         	<label for="nameInput">Hotel Middle Earth</label>
         	<br/>
@@ -89,10 +89,7 @@ class Game {
         const nameForm = document.getElementById("nameForm");
         nameForm.style.display = "none";
 
-        this.hotel = new Hotels("0", "0");
-        this.hotel = new Hotels("30", "0");
-        this.hotel = new Hotels("60", "0");
-        this.hotel = new Hotels("90", "0");
+        this.hotelsArray.push(new Hotels());
 
         const storedUserName = localStorage.getItem("userName");
         if (storedUserName) {
@@ -148,12 +145,12 @@ class Game {
             generateVisitors();
             setTimeout(() => {
                 cleanUpVisitors();
-            }, 2000);
+            }, 5000);
         };
 
         const darkSide = () => {
             generateAndClean();
-            this.interval2 = setInterval(generateAndClean, 4000);
+            this.interval2 = setInterval(generateAndClean, 10000);
 
             const darkTimeoutId = setTimeout(() => {
                 this.darkVersion();
@@ -165,13 +162,14 @@ class Game {
     }
     darkVersion() {
         const newBackground = document.getElementById("board");
-        newBackground.style.backgroundColor = this.isDarkVersionActive
-            ? "gray"
-            : "purple";
+
+        newBackground.style.backgroundImage = this.isDarkVersionActive
+            ? "url('./images/bcg.jpg')"
+            : "url('./images/dark-bcg.jpg')";
         this.isDarkVersionActive = !this.isDarkVersionActive;
 
         setTimeout(() => {
-            newBackground.style.backgroundColor = "gray";
+            newBackground.style.backgroundImage = "url('./images/bcg.jpg')";
             this.isDarkVersionActive = false;
         }, 20000);
     }
@@ -234,8 +232,6 @@ class Game {
         );
     }
     gameOver() {
-        clearInterval(this.generateAndCleanInterval);
-        clearInterval(this.darkSideInterval);
         clearInterval(this.interval1);
         clearInterval(this.interval2);
 
@@ -247,12 +243,7 @@ class Game {
         const parentElm = document.getElementById("board");
 
         this.visitorsArr.forEach((visitor) => {
-            if (
-                visitor.domElement &&
-                visitor.domElement.parentNode === parentElm
-            ) {
-                parentElm.removeChild(visitor.domElement);
-            }
+            parentElm.removeChild(visitor.domElement);
         });
         parentElm.innerHTML = "";
 
@@ -293,47 +284,39 @@ class Game {
 }
 
 class Hotels {
-    constructor(positionX, positionY) {
-        this.width = 10;
-        this.height = 10;
-        this.positionX = positionX;
-        this.positionY = positionY;
-        this.domElement = null;
-
+    constructor() {
+        this.createContainer();
         this.createDomElement();
     }
-    createDomElement() {
-        this.domElement = document.createElement("div");
-
-        this.domElement.id = "hotel";
-        this.domElement.style.width = this.width + "vw";
-        this.domElement.style.height = this.height + "vh";
-        this.domElement.style.left = this.positionX + "vw";
-        this.domElement.style.bottom = this.positionY + "vh";
-
+    createContainer() {
+        this.containerElement = document.createElement("div");
+        this.containerElement.id = "hotel-container";
         const parentElm = document.getElementById("board");
-        parentElm.appendChild(this.domElement);
+        parentElm.appendChild(this.containerElement);
+    }
+    createDomElement() {
+        const hotelIds = ["hotel1", "hotel2", "hotel3", "hotel4"];
+
+        hotelIds.forEach((id) => {
+            const hotelImage = document.createElement("img");
+            hotelImage.id = id;
+            hotelImage.setAttribute("src", `./images/${id}.png`);
+            this.containerElement.appendChild(hotelImage);
+        });
     }
 }
 class Visitors {
     constructor(game) {
-        this.width = 10;
-        this.height = 10;
-        this.positionX = Math.floor(Math.random() * (100 - this.width + 1));
-        this.positionY = Math.floor(
-            Math.random() * (100 - this.height - this.height + 1) + this.height
-        );
+        this.positionX = Math.floor(Math.random() * (80 + 1));
+        this.positionY = Math.floor(Math.random() * (50 + 1) + 25);
         this.game = game;
         this.createDomElement();
     }
 
     createDomElement() {
         const parentElm = document.getElementById("board");
-        this.domElement = document.createElement("button");
+        this.domElement = document.createElement("img");
         this.domElement.setAttribute("id", "visitor");
-        //this.domElement.getElementById("visitor");
-        this.domElement.style.width = this.width + "vw";
-        this.domElement.style.height = this.height + "vh";
         this.domElement.style.left = this.positionX + "vw";
         this.domElement.style.bottom = this.positionY + "vh";
 
@@ -355,31 +338,35 @@ class Visitors {
         if (randomNumber === 1) {
             this.type = "elves";
             this.domElement.className = "elvish";
+            this.domElement.setAttribute("src", "./images/elf.png");
         } else if (randomNumber === 2) {
             this.type = "humans";
             this.domElement.className = "human";
+            this.domElement.setAttribute("src", "./images/human.png");
         } else if (randomNumber === 3) {
             this.type = "orgs";
             this.domElement.className = "org";
+            this.domElement.setAttribute("src", "./images/org.png");
         } else if (randomNumber === 4) {
             this.type = "goblins";
             this.domElement.className = "goblin";
+            this.domElement.setAttribute("src", "./images/goblin.png");
         }
     }
     moveDownGood() {
         this.domElement.style.bottom = this.positionY + "vh";
         this.domElement.style.left = this.positionX + "vw";
         if (this.type === "humans") {
-            this.positionX = 60;
+            this.positionX = 55;
             this.positionY = 0;
         } else if (this.type === "elves") {
-            this.positionX = 90;
+            this.positionX = 82;
             this.positionY = 0;
         } else if (this.type === "goblins") {
-            this.positionX = 60;
+            this.positionX = 55;
             this.positionY = 0;
         } else if (this.type === "orgs") {
-            this.positionX = 90;
+            this.positionX = 87;
             this.positionY = 0;
         }
     }
@@ -390,13 +377,13 @@ class Visitors {
             this.positionX = 0;
             this.positionY = 0;
         } else if (this.type === "elves") {
-            this.positionX = 30;
+            this.positionX = 22;
             this.positionY = 0;
         } else if (this.type === "goblins") {
             this.positionX = 0;
             this.positionY = 0;
         } else if (this.type === "orgs") {
-            this.positionX = 30;
+            this.positionX = 25;
             this.positionY = 0;
         }
     }
