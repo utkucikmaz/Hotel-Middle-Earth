@@ -237,11 +237,11 @@ class Game {
     handleVisitorClick(visitor) {
         if (visitor.type === "human" || visitor.type === "elf") {
             this.room.push(visitor);
-            this.score++;
+            this.score += 10;
             this.goodSound.play();
         } else if (visitor.type === "org" || visitor.type === "goblin") {
             this.room.pop(visitor);
-            this.score--;
+            this.score -= 10;
             this.health--;
             this.badSound.play();
         } else if (
@@ -284,11 +284,11 @@ class Game {
     handleVisitorClickEvil(visitor) {
         if (visitor.type === "org" || visitor.type === "goblin") {
             this.room.push(visitor);
-            this.score++;
+            this.score += 10;
             this.badSound.play();
         } else if (visitor.type === "human" || visitor.type === "elf") {
             this.room.pop(visitor);
-            this.score--;
+            this.score -= 10;
             this.health--;
             this.goodSound.play();
         } else if (
