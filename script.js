@@ -85,7 +85,7 @@ class Game {
         const nameForm = document.createElement("form");
         nameForm.id = "nameForm";
         nameForm.innerHTML = `
-        	<label for="nameInput">Hotel Middle Earth</label>
+        	<label for="nameInput" id="title">Hotel Middle Earth</label>
         	<br/>
             <input type="text" id="nameInput" placeholder="Please enter your name" required>
         	<br/>
@@ -148,16 +148,18 @@ class Game {
                 <li>Avoid ${org} and ${goblin} to maintain your health.</li>
                 <li>Be careful about the ${gollum} if you have the ${ring}, he is a filthy thief.</li>
                 <li>If you serve ${sauron} you lose double health and score.</li>
-                <li>If you lose all your health before you destroy the ring, it is game over.</li>
-                <li>If you find both the ${ring} and ${gandalf}.  ${hotel3} wins!</li>
+                <li>If you lose all your health before you destroy the ring,</li> 
+                <li>the game is over.</li>
+                <li>If you find both ${ring} and ${gandalf}.  ${hotel3} wins!</li>
              </div>
              <div id ="inst-bad">
                 <li>Eye mode will activate periodically, be cautious!</li>
-                <li>On the eye mode you must obey ${sauron} and collect ${org} and ${goblin}.</li>
+                <li>Now you must obey ${sauron} and collect ${org} and ${goblin}.</li>
                 <li>Even though you serve ${sauron}, ${gollum} is still a thief.</li>
                 <li>If you serve ${gandalf} you lose double health and score.</li>
-                <li>If you lose all your health before you destroy the ring, it is game over.</li>
-                <li>If you find both the ${ring} and ${sauron}.  ${hotel2} wins!</li>
+                <li>If you lose all your health before you destroy the ring,</li>
+                <li>the game is over.</li>
+                <li>If you find both ${ring} and ${sauron}.  ${hotel2} wins!</li>
              </div>
             </ul>
             
@@ -681,6 +683,9 @@ class Game {
         backButton.addEventListener("click", () => {
             location.assign("index.html");
         });
+        this.visitorsArr.forEach((element) => {
+            element.domElement.remove();
+        });
 
         parentElm.innerHTML = "";
         parentElm.appendChild(topPlayersContainer);
@@ -796,13 +801,13 @@ class Visitors {
             this.positionX = 55;
             this.positionY = 0;
         } else if (this.type === "elf") {
-            this.positionX = 82;
+            this.positionX = 88;
             this.positionY = 0;
         } else if (this.type === "goblin") {
             this.positionX = 55;
             this.positionY = 0;
         } else if (this.type === "org") {
-            this.positionX = 87;
+            this.positionX = 88;
             this.positionY = 0;
         } else if (this.type === "sauron") {
             this.positionX = 25;
