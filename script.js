@@ -3,6 +3,7 @@ class Game {
         this.showName();
         this.room = [];
         this.score = 0;
+        this.userName = null;
         this.health = 5;
         this.hotelsArray = [];
         this.visitorsArr = [];
@@ -28,6 +29,56 @@ class Game {
         this.gandalfSound = document.getElementById("gandalf-sound");
         this.sauronSound = document.getElementById("sauron-sound");
         this.ringSound = document.getElementById("ring-sound");
+        this.storeData();
+    }
+    storeData() {
+        if (!this.userName) {
+            console.error(
+                "User name is null or empty. Data will not be stored."
+            );
+            return;
+        }
+        const firebaseConfig = {
+            apiKey: "AIzaSyBJ9aJ0Uw7CtfszGxi9zr5n79k650gpYo4",
+            authDomain: "hotel-middle-earth.firebaseapp.com",
+            projectId: "hotel-middle-earth",
+            storageBucket: "hotel-middle-earth.appspot.com",
+            messagingSenderId: "285009011754",
+            appId: "1:285009011754:web:9567a429298ed847d14f53",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const firestore = firebase.firestore();
+        const usersCollection = firestore.collection("users");
+
+        usersCollection
+            .add({
+                userName: this.userName,
+                score: this.score,
+            })
+            .then((docRef) => {
+                console.log("Document written with ID:", docRef.id);
+            })
+            .catch((error) => {
+                console.error("Error adding document:", error);
+            });
+
+        usersCollection
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    console.log(
+                        "User:",
+                        userData.userName,
+                        "Score:",
+                        userData.score
+                    );
+                });
+            })
+            .catch((error) => {
+                console.error("Error getting documents:", error);
+            });
     }
 
     showName() {
@@ -106,27 +157,10 @@ class Game {
             return;
         }
 
-        localStorage.setItem("this.userName", this.userName);
-        localStorage.setItem("score", 0);
-
         const nameForm = document.getElementById("nameForm");
         nameForm.style.display = "none";
 
         this.hotelsArray.push(new Hotels());
-
-        const storedUserName = localStorage.getItem("userName");
-        if (storedUserName) {
-            console.log("Stored userName:", storedUserName);
-        } else {
-            console.log("userName not found in local storage.");
-        }
-
-        // const storedScore = localStorage.getItem("score");
-        // if (storedScore !== null) {
-        //     console.log("Stored score:", parseInt(storedScore));
-        // } else {
-        //     console.log("Score not found in local storage.");
-        // }
 
         this.createVisitors();
     }
@@ -159,7 +193,6 @@ class Game {
             }
         };
         const updateVisitorCount = (type) => {
-            console.log("Visitor Counts:", this.visitorCounts);
             return this.visitorCounts[type]++;
         };
 
@@ -243,20 +276,10 @@ class Game {
             this.health -= 2;
         }
 
-        console.log(this.darkWinsArr);
-        console.log(this.goodWinsArr);
-        console.log(this.hasRing);
-
-        localStorage.setItem("score", this.score.toString());
         this.updateScoreDisplay();
         this.updateHealthDisplay();
         this.updateRingDisplay();
         this.finishGame();
-
-        console.log(
-            "Types in room:",
-            this.room.map((visitor) => visitor.type)
-        );
     }
     handleVisitorClickEvil(visitor) {
         if (visitor.type === "org" || visitor.type === "goblin") {
@@ -300,20 +323,10 @@ class Game {
             this.health -= 2;
         }
 
-        console.log(this.darkWinsArr);
-        console.log(this.goodWinsArr);
-        console.log(this.hasRing);
-
-        localStorage.setItem("score", this.score.toString());
         this.updateScoreDisplay();
         this.updateHealthDisplay();
         this.updateRingDisplay();
         this.finishGame();
-
-        console.log(
-            "Types in room:",
-            this.room.map((visitor) => visitor.type)
-        );
     }
     updateScoreDisplay() {
         this.scoreDisplay.textContent = `Score: ${this.score}`;
@@ -356,24 +369,16 @@ class Game {
     }
 
     gameOver() {
+        this.storeData();
         clearInterval(this.interval1);
         clearInterval(this.interval2);
 
-        // const gameOverGif = document.createElement("img");
-        // gameOverGif.className = "over-gif";
-        // gameOverGif.setAttribute("src", "./images/erdogan-over.gif");
-        // gameOverGif.setAttribute("alt", "beautiful image of jail");
-
         const parentElm = document.getElementById("board");
 
-        const deleteInterval = () => {
-            this.visitorsArr.forEach((visitor) => {
-                parentElm.removeChild(visitor.domElement);
-            });
-            parentElm.innerHTML = "";
-        };
-        deleteInterval();
-        setInterval(deleteInterval, 3000);
+        this.visitorsArr.forEach((visitor) => {
+            parentElm.removeChild(visitor.domElement);
+        });
+        parentElm.innerHTML = "";
 
         const gameOverGif = document.createElement("img");
         gameOverGif.className = "over-gif";
@@ -391,11 +396,19 @@ class Game {
 
         parentElm.appendChild(gameOverDiv);
 
+        const showPlayersButton = document.createElement("button");
+        showPlayersButton.id = "players-button";
+        showPlayersButton.textContent = "Top Players";
+        showPlayersButton.addEventListener("click", (event) => {
+            this.showTopPlayers();
+        });
+
         const restartDiv = document.createElement("p");
         restartDiv.className = "restart";
         restartDiv.innerText = "Press space to restart";
 
         gameOverDiv.appendChild(gameOverGif);
+        gameOverDiv.appendChild(showPlayersButton);
         gameOverDiv.appendChild(restartDiv);
 
         this.visitorsArr.forEach((element) => {
@@ -414,24 +427,16 @@ class Game {
         }
     }
     sauronWins() {
+        this.storeData();
         clearInterval(this.interval1);
         clearInterval(this.interval2);
 
-        // const gameOverGif = document.createElement("img");
-        // gameOverGif.className = "over-gif";
-        // gameOverGif.setAttribute("src", "./images/erdogan-over.gif");
-        // gameOverGif.setAttribute("alt", "beautiful image of jail");
-
         const parentElm = document.getElementById("board");
 
-        const deleteInterval = () => {
-            this.visitorsArr.forEach((visitor) => {
-                parentElm.removeChild(visitor.domElement);
-            });
-            parentElm.innerHTML = "";
-        };
-        deleteInterval();
-        setInterval(deleteInterval, 4000);
+        this.visitorsArr.forEach((visitor) => {
+            parentElm.removeChild(visitor.domElement);
+        });
+        parentElm.innerHTML = "";
 
         const gameOverGif = document.createElement("img");
         gameOverGif.id = "sauron-won";
@@ -450,11 +455,19 @@ class Game {
 
         parentElm.appendChild(gameOverDiv);
 
+        const showPlayersButton = document.createElement("button");
+        showPlayersButton.id = "players-button";
+        showPlayersButton.textContent = "Top Players";
+        showPlayersButton.addEventListener("click", () => {
+            this.showTopPlayers();
+        });
+
         const restartDiv = document.createElement("p");
         restartDiv.className = "restart";
         restartDiv.innerText = "Press space to restart";
 
         gameOverDiv.appendChild(gameOverGif);
+        gameOverDiv.appendChild(showPlayersButton);
         gameOverDiv.appendChild(restartDiv);
 
         this.visitorsArr.forEach((element) => {
@@ -468,24 +481,16 @@ class Game {
         });
     }
     gandalfWins() {
+        this.storeData();
         clearInterval(this.interval1);
         clearInterval(this.interval2);
 
-        // const gameOverGif = document.createElement("img");
-        // gameOverGif.className = "over-gif";
-        // gameOverGif.setAttribute("src", "./images/erdogan-over.gif");
-        // gameOverGif.setAttribute("alt", "beautiful image of jail");
-
         const parentElm = document.getElementById("board");
 
-        const deleteInterval = () => {
-            this.visitorsArr.forEach((visitor) => {
-                parentElm.removeChild(visitor.domElement);
-            });
-            parentElm.innerHTML = "";
-        };
-        deleteInterval();
-        setInterval(deleteInterval, 4000);
+        this.visitorsArr.forEach((visitor) => {
+            parentElm.removeChild(visitor.domElement);
+        });
+        parentElm.innerHTML = "";
 
         const gameOverGif = document.createElement("img");
         gameOverGif.id = "gandalf-won";
@@ -505,11 +510,19 @@ class Game {
 
         parentElm.appendChild(gameOverDiv);
 
+        const showPlayersButton = document.createElement("button");
+        showPlayersButton.id = "players-button";
+        showPlayersButton.textContent = "Top Players";
+        showPlayersButton.addEventListener("click", () => {
+            this.showTopPlayers();
+        });
+
         const restartDiv = document.createElement("p");
         restartDiv.className = "restart";
         restartDiv.innerText = "Press space to restart";
 
         gameOverDiv.appendChild(gameOverGif);
+        gameOverDiv.appendChild(showPlayersButton);
         gameOverDiv.appendChild(restartDiv);
 
         this.visitorsArr.forEach((element) => {
@@ -521,6 +534,51 @@ class Game {
                 location.assign("index.html");
             }
         });
+    }
+    showTopPlayers() {
+        const parentElm = document.getElementById("board");
+
+        const topPlayersContainer = document.createElement("div");
+        topPlayersContainer.id = "topPlayersContainer";
+
+        const title = document.createElement("p");
+        title.textContent = "Top Players";
+        title.className = "top-players-title";
+        topPlayersContainer.appendChild(title);
+
+        const playerList = document.createElement("ol");
+        playerList.className = "player-list";
+        topPlayersContainer.appendChild(playerList);
+
+        const firestore = firebase.firestore();
+        const usersCollection = firestore.collection("users");
+
+        usersCollection
+            .orderBy("score", "desc")
+            .limit(10)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${userData.userName}: ${userData.score}`;
+                    playerList.appendChild(listItem);
+                });
+            })
+            .catch((error) => {
+                console.error("Error getting top players:", error);
+            });
+
+        const backButton = document.createElement("button");
+        backButton.textContent = "Back";
+        backButton.className = "back-button";
+        backButton.addEventListener("click", () => {
+            location.assign("index.html");
+        });
+
+        parentElm.innerHTML = "";
+        parentElm.appendChild(topPlayersContainer);
+        topPlayersContainer.appendChild(backButton);
     }
 }
 
@@ -697,8 +755,6 @@ class Visitors {
     }
 }
 
-this.game = new Game();
-
 document.addEventListener("DOMContentLoaded", () => {
-    this.game;
+    this.game = new Game();
 });
