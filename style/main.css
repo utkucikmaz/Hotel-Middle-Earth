@@ -75,41 +75,49 @@ body {
     background-color: transparent;
     height: 15vh;
     width: auto;
+    transition: 0.3s ease-out;
 }
 .human {
     background-color: transparent;
     height: 20vh;
     width: auto;
+    transition: 0.3s ease-out;
 }
 .org {
     background-color: transparent;
     height: 15vh;
     width: auto;
+    transition: 0.3s ease-out;
 }
 .goblin {
     background-color: transparent;
     height: 15vh;
     width: auto;
+    transition: 0.3s ease-out;
 }
 .gandalf {
     background-color: transparent;
     height: 15vh;
     width: auto;
+    transition: 0.3s ease-out;
 }
 .sauron {
     background-color: transparent;
     height: 15vh;
     width: auto;
+    transition: 0.3s ease-out;
 }
 .ring {
     background-color: transparent;
     height: 3vh;
     width: auto;
+    transition: 0.3s ease-out;
 }
 .gollum {
     background-color: transparent;
     height: 10vh;
     width: auto;
+    transition: 0.3s ease-out;
 }
 #sauron-won {
     display: block;
@@ -201,7 +209,7 @@ body {
     width: 2vw;
     height: auto;
     left: 50vw;
-    padding-top: 0;
+    padding-top: 1vh;
     position: absolute;
     text-align: center;
 }
@@ -348,12 +356,14 @@ body {
 }
 #instructionsContainer {
     background-color: #000;
-    width: 100vw;
-    height: 100vh;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     overflow: scroll;
     cursor: pointer;
+    box-shadow: inset 0 0 0 1000px rgb(0, 0, 0);
 }
 #backbutton-container {
     display: block;
@@ -460,6 +470,6 @@ body {
     left: 20vw;
     top: 2vh;
     text-align: center;
-    font-size: 3vh;
+    font-size: 2vh;
     color: #fff;
 }

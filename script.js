@@ -162,7 +162,6 @@ class Game {
                 <li>If you find both ${ring} and ${sauron}.  ${hotel2} wins!</li>
              </div>
             </ul>
-            
     `;
 
         parentElm.innerHTML = "";
@@ -227,11 +226,12 @@ class Game {
         };
 
         const cleanUpVisitors = () => {
-            this.visitorsArr.forEach((visitor) => {
-                parentElm.removeChild(visitor.domElement);
+            this.visitorsArr.forEach((element) => {
+                element.domElement.remove();
             });
             this.visitorsArr = [];
         };
+
         const generateAndClean = () => {
             generateVisitors();
             setTimeout(() => {
@@ -245,7 +245,7 @@ class Game {
 
             const darkTimeoutId = setTimeout(() => {
                 this.darkVersion();
-            }, 19000);
+            }, 20000);
         };
 
         darkSide();
@@ -492,6 +492,7 @@ class Game {
 
         const gameOverDiv = document.createElement("p");
         gameOverDiv.className = "game-over";
+        gameOverDiv.id = "game-over-id";
         gameOverDiv.innerHTML = `
 			<p class="over-title">${this.userName} couldn't destroy the ring.</p>
             
@@ -550,6 +551,7 @@ class Game {
 
         const gameOverDiv = document.createElement("p");
         gameOverDiv.className = "sauron-class";
+        gameOverDiv.id = "game-over-id";
         gameOverDiv.innerHTML = `
 		<p class="over-title">Sauron took the Middle Earth over.</p>
         <div class="sauron-info-container">
@@ -605,6 +607,7 @@ class Game {
 
         const gameOverDiv = document.createElement("p");
         gameOverDiv.className = "gandalf-class";
+        gameOverDiv.id = "game-over-id";
         gameOverDiv.innerHTML = `
             <p class="over-title">Now Middle Earth is Free!!</p>
             <div id="gandalf-info-container">
@@ -644,10 +647,19 @@ class Game {
         });
     }
     showTopPlayers() {
-        const parentElm = document.getElementById("board");
+        const parentElm = document.getElementById("game-over-id");
+        clearInterval(this.interval1);
+        clearInterval(this.interval2);
+        parentElm.innerHTML = "";
+        // setInterval(() => {
+        //     this.visitorsArr.forEach((element) => {
+        //         element.domElement.remove();
+        //     });
+        // }, 0);
 
         const topPlayersContainer = document.createElement("div");
         topPlayersContainer.id = "topPlayersContainer";
+        parentElm.appendChild(topPlayersContainer);
 
         const title = document.createElement("p");
         title.textContent = "Top Players";
@@ -683,12 +695,7 @@ class Game {
         backButton.addEventListener("click", () => {
             location.assign("index.html");
         });
-        this.visitorsArr.forEach((element) => {
-            element.domElement.remove();
-        });
 
-        parentElm.innerHTML = "";
-        parentElm.appendChild(topPlayersContainer);
         topPlayersContainer.appendChild(backButton);
     }
 }
