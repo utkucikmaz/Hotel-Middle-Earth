@@ -110,29 +110,57 @@ class Game {
     }
 
     showInstructions() {
+        const elf = '<img src="./images/elf.png" class = "inst-char"></img>';
+        const human =
+            '<img src="./images/human.png" class = "inst-char"></img>';
+        const org = '<img src="./images/org.png" class = "inst-char"></img>';
+        const goblin =
+            '<img src="./images/goblin.png" class = "inst-char"></img>';
+        const gandalf =
+            '<img src="./images/gandalf.png" class = "inst-char"></img>';
+        const sauron =
+            '<img src="./images/sauron.png" class = "inst-char"></img>';
+        const gollum =
+            '<img src="./images/gollum.png" class = "inst-char" id="gollum-inst"></img>';
+        const ring =
+            '<img src="./images/ring.png" class = "inst-char" id="ring-inst"></img>';
+        const hotel1 =
+            '<img src="./images/hotel1.png" class = "inst-char"></img>';
+        const hotel2 =
+            '<img src="./images/hotel2.png" class = "inst-char"></img>';
+        const hotel3 =
+            '<img src="./images/hotel3.png" class = "inst-char"></img>';
+        const hotel4 =
+            '<img src="./images/hotel4.png" class = "inst-char"></img>';
+
         const parentElm = document.getElementById("board");
         const instructionsContainer = document.createElement("div");
         instructionsContainer.id = "instructionsContainer";
         instructionsContainer.innerHTML = `
-        <p id="instruction-title">Welcome to the Hotel Middle Earth!</p>
-        <p id="instruction-title">Here are the instructions</p>
-        <ul id="instruction-list">
-            <li>Collect elves and humans to score points.</li>
-            <li>Avoid orgs and goblins to maintain your health.</li>
-            <li>If you find both the Ring and Gandalf. Minas Tirith wins!</li>
-            <li>Be careful about the Gollum if you have the ring, the little thief.</li>
-            <br/>
-            <li>Eye mode will activate periodically, be cautious!</li>
-            <li>Eye mode you must obey Sauron and collect orgs and goblins.</li>
-            <li>If you find both the Ring and Sauron. Mordor wins!</li>
-            <li>Even though you serve Sauron, Gollum is still an enemy.</li>
-            <br/>
-            <li>Every time you serve the wrong leader you lose health.</li>
-            <li>If you choose Sauron and Gandalf in the wrong time, you lose more.</li>
-            <br/>
-            <li>The most important rule is don't forget to have fun!!</li>
+        <h1 id="instruction-title">Welcome to the Hotel Middle Earth!</h1>
+            <div id="backbutton-container">
+                <button id="backButton">Back</button>
+            </div>
+                <br/>
+            <ul id="instruction-list">
+             <div id="inst-good">
+                <li>Collect ${elf} and ${human} to score points.</li>
+                <li>Avoid ${org} and ${goblin} to maintain your health.</li>
+                <li>Be careful about the ${gollum} if you have the ${ring}, he is a filthy thief.</li>
+                <li>If you serve ${sauron} you lose double health and score.</li>
+                <li>If you lose all your health before you destroy the ring, it is game over.</li>
+                <li>If you find both the ${ring} and ${gandalf}.  ${hotel3} wins!</li>
+             </div>
+             <div id ="inst-bad">
+                <li>Eye mode will activate periodically, be cautious!</li>
+                <li>On the eye mode you must obey ${sauron} and collect ${org} and ${goblin}.</li>
+                <li>Even though you serve ${sauron}, ${gollum} is still a thief.</li>
+                <li>If you serve ${gandalf} you lose double health and score.</li>
+                <li>If you lose all your health before you destroy the ring, it is game over.</li>
+                <li>If you find both the ${ring} and ${sauron}.  ${hotel2} wins!</li>
+             </div>
             </ul>
-        <button id="backButton">Back</button>
+            
     `;
 
         parentElm.innerHTML = "";
@@ -235,6 +263,23 @@ class Game {
         }, 20000);
     }
     handleVisitorClick(visitor) {
+        const parentElm = document.getElementById("board");
+        function createInfo(infoText) {
+            const info = document.createElement("p");
+            info.id = "info-text";
+            parentElm.appendChild(info);
+            info.innerHTML = infoText;
+
+            setTimeout(() => {
+                parentElm.removeChild(info);
+            }, 2000);
+        }
+        const ringInfo = `You captured the Ring. Find Gandalf to destroy it.`;
+        const gollumWithRing = `Gollum stole your Ring!`;
+        const gollumWithoutRing = `You don't have the Ring, Gollum run away.`;
+        const gandalfWithoutRing = `You should find the Ring before Gandalf!`;
+        const sauronGoodSide = `The power of Sauron is limited on this side.`;
+
         if (visitor.type === "human" || visitor.type === "elf") {
             this.room.push(visitor);
             this.score += 10;
@@ -256,6 +301,7 @@ class Game {
             this.ringSound.play();
             this.goodWinsArr.push("ring");
             this.hasRing = true;
+            createInfo(ringInfo);
         } else if (
             visitor.type === "gollum" &&
             this.darkWinsArr.includes("ring")
@@ -263,6 +309,7 @@ class Game {
             this.darkWinsArr.pop("ring");
             this.hasRing = false;
             this.gollumSound.play();
+            createInfo(gollumWithRing);
         } else if (
             visitor.type === "gollum" &&
             this.goodWinsArr.includes("ring")
@@ -270,10 +317,28 @@ class Game {
             this.goodWinsArr.pop("ring");
             this.hasRing = false;
             this.gollumSound.play();
+            createInfo(gollumWithRing);
         } else if (visitor.type === "sauron") {
             this.sauronSound.play();
             this.score -= 20;
             this.health -= 2;
+            createInfo(sauronGoodSide);
+        } else if (
+            visitor.type === "gandalf" &&
+            !this.goodWinsArr.includes("ring")
+        ) {
+            this.gandalfSound.play();
+            createInfo(gandalfWithoutRing);
+        } else if (
+            visitor.type === "gollum" &&
+            !this.goodWinsArr.includes("ring")
+        ) {
+            createInfo(gollumWithoutRing);
+        } else if (
+            visitor.type === "gollum" &&
+            !this.darkWinsArr.includes("ring")
+        ) {
+            createInfo(gollumWithoutRing);
         }
 
         this.updateScoreDisplay();
@@ -282,6 +347,24 @@ class Game {
         this.finishGame();
     }
     handleVisitorClickEvil(visitor) {
+        const parentElm = document.getElementById("board");
+
+        function createInfo(infoText) {
+            const info = document.createElement("p");
+            info.id = "info-text";
+            parentElm.appendChild(info);
+            info.innerHTML = infoText;
+
+            setTimeout(() => {
+                parentElm.removeChild(info);
+            }, 2000);
+        }
+        const ringInfo = `You captured the Ring. Find Sauron to rule the Middle Earth!.`;
+        const gollumWithRing = `Gollum stole your Ring!`;
+        const gollumWithoutRing = `You don't have the Ring, Gollum run away.`;
+        const sauronWithoutRing = `You should find the Ring before Sauron!`;
+        const gandalfEvilSide = `The power of Gandalf is limited on this side.`;
+
         if (visitor.type === "org" || visitor.type === "goblin") {
             this.room.push(visitor);
             this.score += 10;
@@ -303,6 +386,7 @@ class Game {
             this.ringSound.play();
             this.darkWinsArr.push("ring");
             this.hasRing = true;
+            createInfo(ringInfo);
         } else if (
             visitor.type === "gollum" &&
             this.darkWinsArr.includes("ring")
@@ -310,6 +394,7 @@ class Game {
             this.darkWinsArr.pop("ring");
             this.hasRing = false;
             this.gollumSound.play();
+            createInfo(gollumWithRing);
         } else if (
             visitor.type === "gollum" &&
             this.goodWinsArr.includes("ring")
@@ -317,10 +402,28 @@ class Game {
             this.goodWinsArr.pop("ring");
             this.hasRing = false;
             this.gollumSound.play();
+            createInfo(gollumWithRing);
         } else if (visitor.type === "gandalf") {
             this.gandalfSound.play();
             this.score -= 20;
             this.health -= 2;
+            createInfo(gandalfEvilSide);
+        } else if (
+            visitor.type === "sauron" &&
+            !this.goodWinsArr.includes("ring")
+        ) {
+            this.sauronSound.play();
+            createInfo(sauronWithoutRing);
+        } else if (
+            visitor.type === "gollum" &&
+            !this.goodWinsArr.includes("ring")
+        ) {
+            createInfo(gollumWithoutRing);
+        } else if (
+            visitor.type === "gollum" &&
+            !this.darkWinsArr.includes("ring")
+        ) {
+            createInfo(gollumWithoutRing);
         }
 
         this.updateScoreDisplay();
@@ -447,11 +550,12 @@ class Game {
         gameOverDiv.className = "sauron-class";
         gameOverDiv.innerHTML = `
 		<p class="over-title">Sauron took the Middle Earth over.</p>
-        
+        <div class="sauron-info-container">
         <p>Now everyone must obey the dark lord.</p>
-       
 		<p>${this.userName} served Sauron loyally...</p>
-        <p>Sauron gave ${this.userName} ${this.score} soldiers to invade more!</p>`;
+        <p>Sauron gave ${this.userName} ${this.score} soldiers to invade more!</p>
+        <br/>
+        </div>`;
 
         parentElm.appendChild(gameOverDiv);
 
@@ -501,11 +605,13 @@ class Game {
         gameOverDiv.className = "gandalf-class";
         gameOverDiv.innerHTML = `
             <p class="over-title">Now Middle Earth is Free!!</p>
+            <div id="gandalf-info-container">
             <p>Gandalf has really come on time as he promised to Aragorn</p>
             <p><i>"Look to my coming on the first light of the fifth day, at dawn
                 look to the east..."</i></p>
             <p>${this.userName} helped Gandalf and all his friends during the wars.</p>
             <p>${this.userName} found ${this.score} soldiers and ran to the heart of the enemy.</p>
+            </div>
 `;
 
         parentElm.appendChild(gameOverDiv);
