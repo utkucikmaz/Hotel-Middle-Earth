@@ -30,6 +30,7 @@ class Game {
         this.sauronSound = document.getElementById("sauron-sound");
         this.ringSound = document.getElementById("ring-sound");
         this.storeData();
+        this.gameCanvas = document.getElementById("gameCanvas");
     }
     storeData() {
         if (!this.userName) {
@@ -104,6 +105,7 @@ class Game {
 
         nameForm.addEventListener("submit", (event) => {
             event.preventDefault();
+            this.toggleFullscreen();
             this.startGame();
             this.startBackgroundMusic();
         });
@@ -190,9 +192,42 @@ class Game {
         nameForm.style.display = "none";
 
         this.hotelsArray.push(new Hotels());
-
         this.createVisitors();
     }
+    toggleFullscreen() {
+        const parentElm = document.getElementById("board");
+        const canvas = document.getElementById("gameCanvas");
+        parentElm.appendChild(canvas);
+        const originalWidth = canvas.width;
+        const originalHeight = canvas.height;
+
+        if (!document.fullscreenElement) {
+            if (parentElm.requestFullscreen) {
+                parentElm.requestFullscreen();
+            } else if (parentElm.mozRequestFullScreen) {
+                parentElm.mozRequestFullScreen();
+            } else if (parentElm.webkitRequestFullscreen) {
+                parentElm.webkitRequestFullscreen();
+            } else if (parentElm.msRequestFullscreen) {
+                parentElm.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+
+        document.addEventListener("fullscreenchange", () => {
+            if (document.fullscreenElement) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            } else {
+                canvas.width = originalWidth;
+                canvas.height = originalHeight;
+            }
+        });
+    }
+
     createVisitors() {
         const parentElm = document.getElementById("board");
 
