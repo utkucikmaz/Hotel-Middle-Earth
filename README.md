@@ -2,6 +2,10 @@
 
 Welcome to Hotel Middle Earth! This is a browser-based game where you collect visitors, make choices, and aim for the highest score. Be strategic, avoid enemies, and have fun exploring the Middle Earth universe.
 
+## Demo
+
+https://utkucikmaz.github.io/Hotel-Middle-Earth/
+
 ## Introduction
 
 Hotel Middle Earth is a game developed using HTML, CSS, and JavaScript. It is designed to challenge your decision-making skills and reflexes while immersing you in the fantasy world of Middle Earth.
@@ -21,7 +25,3 @@ There are two different screen in the game and they have their own rules.
 
 ![Good Side Rules](./images/intro-good.png)
 ![Bad Side Rules](./images/intro-bad.png)
-
-## Demo
-
-https://utkucikmaz.github.io/Hotel-Middle-Earth/
