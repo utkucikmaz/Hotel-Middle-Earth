@@ -147,13 +147,13 @@ class Game {
                 <br/>
             <ul id="instruction-list">
              <div id="inst-good">
-                <li>Collect ${elf} and ${human} to score points.</li>
+                <li>In this background collect ${elf} and ${human} to score points.</li>
                 <li>Avoid ${org} and ${goblin} to maintain your health.</li>
                 <li>Be careful about the ${gollum} if you have the ${ring}, he is a filthy thief.</li>
                 <li>If you serve ${sauron} you lose double health and score.</li>
                 <li>If you lose all your health before you destroy the ring,</li> 
                 <li>the game is over.</li>
-                <li>If you find both ${ring} and ${gandalf}.  ${hotel3} wins!</li>
+                <li>If you find both ${ring} and ${gandalf}, ${hotel3} wins!</li>
              </div>
              <div id ="inst-bad">
                 <li>Eye mode will activate periodically, be cautious!</li>
@@ -162,7 +162,7 @@ class Game {
                 <li>If you serve ${gandalf} you lose double health and score.</li>
                 <li>If you lose all your health before you destroy the ring,</li>
                 <li>the game is over.</li>
-                <li>If you find both ${ring} and ${sauron}.  ${hotel2} wins!</li>
+                <li>If you find both ${ring} and ${sauron}, ${hotel2} wins!</li>
              </div>
             </ul>
     `;
