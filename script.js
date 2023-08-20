@@ -31,6 +31,7 @@ class Game {
         this.ringSound = document.getElementById("ring-sound");
         this.storeData();
         this.gameCanvas = document.getElementById("gameCanvas");
+        this.currentSide = null;
     }
     storeData() {
         if (!this.userName) {
@@ -311,6 +312,7 @@ class Game {
                 parentElm.removeChild(info);
             }, 2000);
         }
+
         const ringInfo = `You captured the Ring. Find Gandalf to destroy it.`;
         const gollumWithRing = `Gollum stole your Ring!`;
         const gollumWithoutRing = `You don't have the Ring, Gollum run away.`;
@@ -335,6 +337,7 @@ class Game {
             this.goodWinsArr.push(visitor);
             this.gandalfWins();
         } else if (visitor.type === "ring" && this.goodWinsArr.length === 0) {
+            this.currentSide = "good";
             this.ringSound.play();
             this.goodWinsArr.push("ring");
             this.hasRing = true;
@@ -370,11 +373,13 @@ class Game {
             visitor.type === "gollum" &&
             !this.goodWinsArr.includes("ring")
         ) {
+            this.ringDisplay.innerHTML = "";
             createInfo(gollumWithoutRing);
         } else if (
             visitor.type === "gollum" &&
             !this.darkWinsArr.includes("ring")
         ) {
+            this.ringDisplay.innerHTML = "";
             createInfo(gollumWithoutRing);
         }
 
@@ -420,6 +425,7 @@ class Game {
             this.darkWinsArr.push(visitor);
             this.sauronWins();
         } else if (visitor.type === "ring" && this.darkWinsArr.length === 0) {
+            this.currentSide = "evil";
             this.ringSound.play();
             this.darkWinsArr.push("ring");
             this.hasRing = true;
@@ -455,11 +461,13 @@ class Game {
             visitor.type === "gollum" &&
             !this.goodWinsArr.includes("ring")
         ) {
+            this.ringDisplay.innerHTML = "";
             createInfo(gollumWithoutRing);
         } else if (
             visitor.type === "gollum" &&
             !this.darkWinsArr.includes("ring")
         ) {
+            this.ringDisplay.innerHTML = "";
             createInfo(gollumWithoutRing);
         }
 
@@ -472,6 +480,20 @@ class Game {
         this.scoreDisplay.textContent = `Score: ${this.score}`;
     }
     updateRingDisplay() {
+        const parentElm = document.getElementById("board");
+        const ringUpInfoGood = `The ring is captured by Minas Tirith, find Gandalf`;
+        const ringUpInfoBad = `The ring is captured by Mordor, find Sauron`;
+
+        function createInfo(infoText) {
+            const info = document.createElement("p");
+            info.id = "info-text";
+            parentElm.appendChild(info);
+            info.innerHTML = infoText;
+
+            setTimeout(() => {
+                parentElm.removeChild(info);
+            }, 2000);
+        }
         if (this.hasRing) {
             const ringImage = document.createElement("img");
             ringImage.setAttribute("src", "./images/ring.png");
@@ -481,6 +503,18 @@ class Game {
             this.ringDisplay.innerHTML = "";
 
             this.ringDisplay.appendChild(ringImage);
+
+            if (!this.isDarkVersionActive) {
+                ringImage.addEventListener("click", () => {
+                    createInfo(ringUpInfoGood);
+                    console.log("is clicked good");
+                });
+            } else {
+                ringImage.addEventListener("click", () => {
+                    createInfo(ringUpInfoBad);
+                    console.log("is clicked bad");
+                });
+            }
         } else {
             this.ringDisplay.innerHTML = "";
         }
@@ -805,7 +839,7 @@ class Visitors {
             this.domElement.setAttribute("src", "./images/goblin.png");
         }
 
-        let randomUniqueNumber = Math.floor(Math.random() * 24) + 1;
+        let randomUniqueNumber = Math.floor(Math.random() * 5) + 1;
 
         if (randomUniqueNumber === 4 && !this.game.hasRing) {
             this.ring = document.createElement("img");

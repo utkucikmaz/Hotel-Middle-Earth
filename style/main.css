@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: black;
     font-family: "Roboto", sans-serif;
 }
 
@@ -13,7 +14,6 @@ body {
     background-position: center center;
     z-index: 0;
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.85);
-    overflow: scroll;
     cursor: pointer;
     font-family: "Roboto", sans-serif;
 }
@@ -137,7 +137,7 @@ body {
     color: #fff;
     text-align: center;
     z-index: 1;
-    overflow: scroll;
+
     line-height: 2vh;
 }
 #gandalf-won {
@@ -146,6 +146,7 @@ body {
     margin-left: 20vw;
     width: 60vw;
     height: auto;
+    padding-bottom: 6vh;
 }
 .gandalf-class {
     width: 100vw;
@@ -159,13 +160,13 @@ body {
     color: #fff;
     text-align: center;
     z-index: 1;
-    overflow: scroll;
 }
 #gandalf-info-container {
     font-size: 3vh;
 }
 .sauron-info-container {
     font-size: 3vh;
+    padding-bottom: 5vh;
 }
 .over-gif {
     display: block;
@@ -195,7 +196,6 @@ body {
 .game-over {
     width: 100vw;
     height: 100vh;
-    overflow: scroll;
     margin: 0;
     padding: 0;
     background-color: rgb(0, 0, 0);
@@ -217,17 +217,18 @@ body {
     font-size: 3vw;
 }
 .restart {
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     text-align: center;
     position: relative;
     bottom: 0;
+    padding-top: 3vh;
+    padding-bottom: 10vh;
 }
 
 #nameForm {
     background-image: url(../images/name.gif);
     background-size: cover;
     background-position: center center;
-    overflow: scroll;
     width: 100vw;
     height: 100vh;
     font-size: 10vw;
@@ -359,9 +360,7 @@ body {
     background-size: cover;
     width: 100%;
     height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: scroll;
+
     cursor: pointer;
     box-shadow: inset 0 0 0 1000px rgb(0, 0, 0);
 }
@@ -394,7 +393,6 @@ body {
     background-image: url(../images/players.jpg);
     background-size: cover;
     background-position: center center;
-    overflow: hidden;
     width: 100vw;
     height: 100vh;
     font-size: 2.5vh;
@@ -447,6 +445,7 @@ body {
     display: block;
     text-align: center;
     position: relative;
+    font-size: 2vh;
     width: 30vw;
     height: 5vh;
     left: 35vw;
@@ -472,6 +471,7 @@ body {
     text-align: center;
     font-size: 2vh;
     color: #fff;
+    padding-top: 1vh;
 }
 canvas {
     position: absolute;
