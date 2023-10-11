@@ -839,7 +839,7 @@ class Visitors {
             this.domElement.setAttribute("src", "./images/goblin.png");
         }
 
-        let randomUniqueNumber = Math.floor(Math.random() * 5) + 1;
+        let randomUniqueNumber = Math.floor(Math.random() * 100) + 1;
 
         if (randomUniqueNumber === 4 && !this.game.hasRing) {
             this.ring = document.createElement("img");
