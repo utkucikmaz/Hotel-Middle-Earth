@@ -3,51 +3,31 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<meta name="description"
+		content="Hotel Middle Earth - An immersive browser-based game set in the Middle Earth universe. Collect visitors, make strategic choices, and aim for the highest score!">
+	<meta name="keywords" content="game, middle earth, lotr, browser game, typescript">
+	<meta name="author" content="Utku Cikmaz">
+
+	<!-- Open Graph / Social Media -->
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Hotel Middle Earth">
+	<meta property="og:description" content="An immersive browser-based game set in the Middle Earth universe">
+	<meta property="og:image" content="./public/images/gollum.png">
+	<meta property="og:url" content="https://utkucikmaz.github.io/Hotel-Middle-Earth/">
+
 	<title>Hotel Middle Earth</title>
-	<link rel="icon" href="./images/gollum.png" type="image/png">
+	<link rel="icon" href="./public/images/gollum.png" type="image/png">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,300&display=swap"
 		rel="stylesheet">
-
-	<link rel="stylesheet" href="./style/main.css">
 </head>
 
 <body>
-	<audio id="backgroundMusic" loop>
-		<source src="./sounds/lotr.mp3" type="audio/mpeg">
-	</audio>
-	<audio id="bad-sound">
-		<source src="./sounds/bad-sound.mp3" type="audio/mpeg">
-	</audio>
-	<audio id="good-sound">
-		<source src="./sounds/good-sound.mp3" type="audio/mpeg">
-	</audio>
-	<audio id="gollum-sound">
-		<source src="./sounds/gollum-sound.mp3" type="audio/mpeg">
-	</audio>
-	<audio id="gandalf-sound">
-		<source src="./sounds/gandalf-sound.mp3" type="audio/mpeg">
-	</audio>
-	<audio id="sauron-sound">
-		<source src="./sounds/sauron-sound.mp3" type="audio/mpeg">
-	</audio>
-	<audio id="ring-sound">
-		<source src="./sounds/ring-sound.mp3" type="audio/mpeg">
-	</audio>
-
-	<canvas id="gameCanvas"></canvas>
-	<div id="board" class="background"></div>
-
-
-	<script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore-compat.js"></script>
-
-	<script src="./script.js"></script>
-
-
+	<div id="board" class="background" role="main" aria-label="Game board"></div>
+	<script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>
