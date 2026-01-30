@@ -1,33 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Hotel Middle Earth - An immersive browser-based game set in the Middle Earth universe. Collect visitors, make strategic choices, and aim for the highest score!"
+    />
+    <meta name="keywords" content="game, middle earth, lotr, browser game, typescript" />
+    <meta name="author" content="Utku Cikmaz" />
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-	<meta name="description"
-		content="Hotel Middle Earth - An immersive browser-based game set in the Middle Earth universe. Collect visitors, make strategic choices, and aim for the highest score!">
-	<meta name="keywords" content="game, middle earth, lotr, browser game, typescript">
-	<meta name="author" content="Utku Cikmaz">
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Hotel Middle Earth" />
+    <meta
+      property="og:description"
+      content="An immersive browser-based game set in the Middle Earth universe"
+    />
+    <meta property="og:image" content="images/gollum.png" />
+    <meta property="og:url" content="https://utkucikmaz.github.io/Hotel-Middle-Earth/" />
 
-	<!-- Open Graph / Social Media -->
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="Hotel Middle Earth">
-	<meta property="og:description" content="An immersive browser-based game set in the Middle Earth universe">
-	<meta property="og:image" content="./public/images/gollum.png">
-	<meta property="og:url" content="https://utkucikmaz.github.io/Hotel-Middle-Earth/">
+    <title>Hotel Middle Earth</title>
+    <link rel="icon" href="images/gollum.png" type="image/png" />
 
-	<title>Hotel Middle Earth</title>
-	<link rel="icon" href="./public/images/gollum.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,300&display=swap"
-		rel="stylesheet">
-	<script type="module" src="/src/main.ts"></script>
-</head>
-
-<body>
-	<div id="board" class="background" role="main" aria-label="Game board"></div>
-</body>
-
+  <body>
+    <div id="board" class="background" role="main" aria-label="Game board"></div>
+  </body>
 </html>
