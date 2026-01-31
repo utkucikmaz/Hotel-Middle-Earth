@@ -46,7 +46,7 @@ export class GameOver {
       },
     });
 
-    const container = createElement('p', {
+    const container = createElement('div', {
       className: 'game-over',
       id: 'game-over-id',
       innerHTML: `
@@ -71,7 +71,7 @@ export class GameOver {
       },
     });
 
-    const container = createElement('p', {
+    const container = createElement('div', {
       className: 'gandalf-class',
       id: 'game-over-id',
       innerHTML: `
@@ -100,7 +100,7 @@ export class GameOver {
       },
     });
 
-    const container = createElement('p', {
+    const container = createElement('div', {
       className: 'sauron-class',
       id: 'game-over-id',
       innerHTML: `
