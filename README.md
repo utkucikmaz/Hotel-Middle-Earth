@@ -1,37 +1,29 @@
-# 🏰 Hotel Middle Earth
-
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.0-646CFF.svg)](https://vitejs.dev/)
-[![Firebase](https://img.shields.io/badge/Firebase-10.7-FFCA28.svg)](https://firebase.google.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Hotel Middle Earth
 
 An immersive browser-based game set in the Middle Earth universe. Collect visitors, make strategic choices, and compete for the highest score in this engaging fantasy adventure!
 
-## 🎮 [Live Demo](https://utkucikmaz.github.io/Hotel-Middle-Earth/)
+## [Live Demo](https://utkucikmaz.github.io/Hotel-Middle-Earth/)
 
-![Game Screenshot](./public/images/bcg.jpg)
-
-## ✨ Features
+## Features
 
 ### Core Gameplay
 
-- 🎯 **Strategic Decision Making** - Choose wisely between good and evil visitors
-- 🌓 **Dynamic Game Modes** - Switch between light and dark sides with unique rules
-- 💍 **Special Characters** - Encounter Gandalf, Sauron, Gollum, and the One Ring
-- ❤️ **Health System** - Manage your health while collecting visitors
-- 🏆 **Global Leaderboard** - Compete with players worldwide via Firebase
+- **Strategic Decision Making** - Choose wisely between good and evil visitors
+- **Dynamic Game Modes** - Switch between light and dark sides with unique rules
+- **Special Characters** - Encounter Gandalf, Sauron, Gollum, and the One Ring
+- **Global Leaderboard** - Compete with players worldwide via Firebase
 
 ### Technical Features
 
-- ⚡ **Modern Tech Stack** - Built with TypeScript, Vite, and modular architecture
-- 🎨 **Responsive Design** - Fully playable on desktop and mobile devices
-- ♿ **Accessibility** - ARIA labels, keyboard navigation, and reduced motion support
-- 🔊 **Audio System** - Immersive sound effects with volume controls
-- ⏸️ **Pause/Resume** - Full game state management with pause functionality
-- 💾 **Local Storage** - Save settings and high scores locally
-- 🔐 **Secure Backend** - Environment-based Firebase configuration
+- **Modern Tech Stack** - Built with TypeScript, Vite, and modular architecture
+- **Responsive Design** - Fully playable on desktop and mobile devices
+- **Accessibility** - ARIA labels, keyboard navigation, and reduced motion support
+- **Audio System** - Immersive sound effects with volume controls
+- **Pause/Resume** - Full game state management with pause functionality
+- **Local Storage** - Save settings and high scores locally
+- **Secure Backend** - Environment-based Firebase configuration
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -66,7 +58,7 @@ npm run build
 npm run preview
 ```
 
-## 🎯 How to Play
+## How to Play
 
 ### Good Side (Light Mode)
 
@@ -96,7 +88,7 @@ npm run preview
 - **M** - Mute/Unmute audio
 - **R** - Restart game (when paused)
 
-## 🏗️ Architecture
+## Architecture
 
 ### Project Structure
 
@@ -136,7 +128,7 @@ src/
 - **Factory Pattern** - Visitor creation with random types
 - **Module Pattern** - Clean separation of concerns
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Core
 
@@ -157,7 +149,7 @@ src/
 - **Responsive Design** - Mobile-first approach
 - **CSS Grid & Flexbox** - Layout system
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Run tests
@@ -170,7 +162,7 @@ npm run test:ui
 npm run test:coverage
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Firebase Setup
 
@@ -203,16 +195,16 @@ service cloud.firestore {
 }
 ```
 
-## 📈 Performance Optimizations
+## Performance Optimizations
 
-- ✅ **RequestAnimationFrame** - Smooth animations
-- ✅ **Object Pooling** - Efficient visitor management
-- ✅ **Lazy Loading** - On-demand resource loading
-- ✅ **Code Splitting** - Optimized bundle size
-- ✅ **Asset Optimization** - Compressed images and audio
-- ✅ **Memory Management** - Proper cleanup of intervals and listeners
+- **RequestAnimationFrame** - Smooth animations
+- **Object Pooling** - Efficient visitor management
+- **Lazy Loading** - On-demand resource loading
+- **Code Splitting** - Optimized bundle size
+- **Asset Optimization** - Compressed images and audio
+- **Memory Management** - Proper cleanup of intervals and listeners
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -222,25 +214,25 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👤 Author
+## Author
 
 **Utku Cikmaz**
 
-- <img src="./images/logo/logo.png" alt="Website" width="16" height="16"> **Website**: [utkucikmaz.com](https://utkucikmaz.com)
-- <img src="./images/logo/logo.png" alt="GitHub" width="16" height="16"> **GitHub**: [@utkucikmaz](https://github.com/utkucikmaz)
-- <img src="./images/logo/logo.png" alt="LinkedIn" width="16" height="16"> **LinkedIn**: [utkucikmaz](https://www.linkedin.com/in/utkucikmaz)
+- <img src="./src/assets/images/logo/logo.png" alt="Website" width="16" height="16"> **Website**: [utkucikmaz.com](https://utkucikmaz.com)
+- <img src="./src/assets/images/logo/github-icon.svg" alt="GitHub" width="16" height="16"> **GitHub**: [utkucikmaz](https://github.com/utkucikmaz)
+- <img src="./src/assets/images/logo/linkedin-icon.svg" alt="LinkedIn" width="16" height="16"> **LinkedIn**: [utkucikmaz](https://www.linkedin.com/in/utkucikmaz)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Inspired by J.R.R. Tolkien's Middle Earth universe
 - Game assets and sounds from various open-source resources
 - Built with modern web technologies and best practices
 
-## 📊 Project Stats
+## Project Stats
 
 - **Lines of Code**: ~3,000+
 - **Files**: 25+ TypeScript modules
@@ -248,6 +240,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Bundle Size**: <200KB (gzipped)
 - **Lighthouse Score**: 95+
 
----
-
-⭐ **Star this repository if you found it helpful!**
