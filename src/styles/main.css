@@ -38,7 +38,7 @@ body {
   height: calc(var(--vh) * 100);
   width: 100vw;
   position: relative;
-  background-image: url(/images/bcg.jpg);
+  background-image: url(../assets/images/bcg.jpg);
   background-size: cover;
   background-position: center center;
   z-index: 0;
@@ -393,7 +393,7 @@ body {
 }
 
 #nameForm {
-  background-image: url(/images/name.gif);
+  background-image: url(../assets/images/name.gif);
   background-size: cover;
   background-position: center center;
   width: 100vw;
@@ -616,7 +616,7 @@ body {
 }
 
 #inst-good {
-  background-image: url(/images/bcg.jpg);
+  background-image: url(../assets/images/bcg.jpg);
   background-size: cover;
   background-position: center center;
   display: inline-block;
@@ -640,7 +640,7 @@ body {
 }
 
 #inst-bad {
-  background-image: url(/images/dark-bcg.jpg);
+  background-image: url(../assets/images/dark-bcg.jpg);
   background-size: cover;
   background-position: center center;
   display: inline-block;
@@ -710,7 +710,7 @@ body {
 }
 
 #topPlayersContainer {
-  background-image: url(/images/players.jpg);
+  background-image: url(../assets/images/players.jpg);
   background-size: cover;
   background-position: center center;
   width: 100vw;

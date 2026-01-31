@@ -14,6 +14,8 @@ import { PauseMenu } from '@/ui/PauseMenu';
 import { Settings, SettingsConfig } from '@/ui/Settings';
 import { GAME_CONFIG, SCORE_VALUES, HEALTH_VALUES, KEYBOARD_CONTROLS } from '@/utils/constants';
 import { ParticleEffect } from '@/utils/particles';
+import bcgImg from '@/assets/images/bcg.jpg';
+import darkBcgImg from '@/assets/images/dark-bcg.jpg';
 
 export class Game {
   private gameState: GameStateManager;
@@ -128,7 +130,7 @@ export class Game {
     this.gameState.setState('playing');
     this.menu.hide();
 
-    this.parentElement.style.backgroundImage = "url('/images/bcg.jpg')";
+    this.parentElement.style.backgroundImage = `url('${bcgImg}')`;
 
     this.hotel = new Hotel(this.parentElement);
     this.hud = new HUD(this.parentElement);
@@ -193,8 +195,8 @@ export class Game {
     this.gameState.setDarkMode(isDark);
 
     this.parentElement.style.backgroundImage = isDark
-      ? "url('/images/dark-bcg.jpg')"
-      : "url('/images/bcg.jpg')";
+      ? `url('${darkBcgImg}')`
+      : `url('${bcgImg}')`;
 
     if (isDark) {
       this.darkModeTimeout = window.setTimeout(() => {

@@ -1,4 +1,5 @@
 import { createElement } from '@/utils/helpers';
+import { GAME_OVER_IMAGES } from '@/utils/constants';
 
 export type GameOverType = 'defeat' | 'gandalf' | 'sauron';
 
@@ -40,7 +41,7 @@ export class GameOver {
     const gameOverGif = createElement('img', {
       className: 'over-gif',
       attributes: {
-        src: './images/over.gif',
+        src: GAME_OVER_IMAGES.over,
         alt: "ring couldn't be destroyed",
       },
     });
@@ -65,7 +66,7 @@ export class GameOver {
     const gameOverGif = createElement('img', {
       id: 'gandalf-won',
       attributes: {
-        src: './images/gandalf-won.gif',
+        src: GAME_OVER_IMAGES.gandalfWon,
         alt: 'a beautiful image of gandalf',
       },
     });
@@ -94,7 +95,7 @@ export class GameOver {
     const gameOverGif = createElement('img', {
       id: 'sauron-won',
       attributes: {
-        src: './images/sauron-won.gif',
+        src: GAME_OVER_IMAGES.sauronWon,
         alt: 'a powerful image of sauron',
       },
     });

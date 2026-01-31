@@ -1,4 +1,5 @@
 import { createElement, requestFullscreen } from '@/utils/helpers';
+import { LOGO_IMAGES } from '@/utils/constants';
 
 export class Menu {
   private parentElement: HTMLElement;
@@ -35,15 +36,15 @@ export class Menu {
         </div>
         <div class="menu-social-links">
           <a href="https://utkucikmaz.com" target="_blank" rel="noopener noreferrer" class="social-link">
-            <img src="/images/logo/logo.png" alt="Website" class="social-icon">
+            <img src="${LOGO_IMAGES.logo}" alt="Website" class="social-icon">
             <span>Website</span>
           </a>
           <a href="https://github.com/utkucikmaz/Hotel-Middle-Earth" target="_blank" rel="noopener noreferrer" class="social-link">
-            <img src="/images/logo/github-icon.svg" alt="GitHub" class="social-icon">
+            <img src="${LOGO_IMAGES.github}" alt="GitHub" class="social-icon">
             <span>GitHub</span>
           </a>
           <a href="https://www.linkedin.com/in/utkucikmaz" target="_blank" rel="noopener noreferrer" class="social-link">
-            <img src="/images/logo/linkedin-icon.svg" alt="LinkedIn" class="social-icon">
+            <img src="${LOGO_IMAGES.linkedin}" alt="LinkedIn" class="social-icon">
             <span>LinkedIn</span>
           </a>
         </div>
