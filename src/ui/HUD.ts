@@ -5,27 +5,73 @@ export class HUD {
   private scoreDisplay: HTMLSpanElement;
   private healthDisplay: HTMLSpanElement;
   private ringDisplay: HTMLSpanElement;
+  private settingsButton: HTMLButtonElement;
   private parentElement: HTMLElement;
 
-  constructor(parentElement: HTMLElement) {
+  constructor(parentElement: HTMLElement, onSettingsClick?: () => void) {
     this.parentElement = parentElement;
     this.scoreDisplay = this.createScoreDisplay();
     this.healthDisplay = this.createHealthDisplay();
     this.ringDisplay = this.createRingDisplay();
+    this.settingsButton = this.createSettingsButton(onSettingsClick);
   }
+
+  private createSettingsButton(onClick?: () => void): HTMLButtonElement {
+    const btn = createElement('button', {
+      id: 'hudSettingsBtn',
+      textContent: '⚙️',
+      styles: {
+        position: 'absolute',
+        top: '3vh',
+        right: '12vw',
+        background: 'rgba(255, 255, 255, 0.1)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        borderRadius: '50%',
+        width: '40px',
+        height: '40px',
+        fontSize: '20px',
+        color: '#fff',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backdropFilter: 'blur(5px)',
+        zIndex: '20',
+        transition: 'all 0.2s ease',
+      }
+    });
+
+    btn.addEventListener('mouseenter', () => {
+        btn.style.transform = 'scale(1.1) rotate(90deg)';
+        btn.style.background = 'rgba(255, 255, 255, 0.3)';
+    });
+
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'scale(1) rotate(0deg)';
+        btn.style.background = 'rgba(255, 255, 255, 0.1)';
+    });
+
+    if (onClick) {
+      btn.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent game interaction
+          onClick();
+      });
+      btn.addEventListener('touchstart', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          onClick();
+      });
+    }
+
+    this.parentElement.appendChild(btn);
+    return btn;
+  }
+
 
   private createScoreDisplay(): HTMLSpanElement {
     const display = createElement('span', {
       id: 'scoreDisplay',
       textContent: 'Score: 0',
-      styles: {
-        color: '#fff',
-        position: 'absolute',
-        right: '1vw',
-        fontSize: '1.5vw',
-        textAlign: 'center',
-        top: '1vh',
-      },
     });
     this.parentElement.appendChild(display);
     return display;
@@ -34,15 +80,6 @@ export class HUD {
   private createHealthDisplay(): HTMLSpanElement {
     const display = createElement('span', {
       id: 'healthDisplay',
-      styles: {
-        marginLeft: '1vw',
-        color: '#fff',
-        textAlign: 'center',
-        fontSize: '2vw',
-        position: 'absolute',
-        top: '1vh',
-        left: '0',
-      },
     });
     this.parentElement.appendChild(display);
     return display;
@@ -51,12 +88,6 @@ export class HUD {
   private createRingDisplay(): HTMLSpanElement {
     const display = createElement('span', {
       id: 'ringDisplay',
-      styles: {
-        position: 'absolute',
-        top: '1vh',
-        left: '50vw',
-        transform: 'translateX(-50%)',
-      },
     });
     this.parentElement.appendChild(display);
     return display;
@@ -75,8 +106,6 @@ export class HUD {
       },
       styles: {
         width: 'auto',
-        height: '3vh',
-        marginTop: '1vh',
       },
     });
 
@@ -98,10 +127,7 @@ export class HUD {
           tabindex: '0',
         },
         styles: {
-          width: '2vw',
-          height: 'auto',
           cursor: 'pointer',
-          paddingTop: '1vh',
         },
       });
 
@@ -138,5 +164,6 @@ export class HUD {
     this.scoreDisplay.remove();
     this.healthDisplay.remove();
     this.ringDisplay.remove();
+    this.settingsButton.remove();
   }
 }

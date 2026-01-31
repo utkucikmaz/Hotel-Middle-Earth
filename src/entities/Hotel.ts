@@ -12,36 +12,23 @@ export class Hotel {
   private createContainer(): HTMLDivElement {
     const container = document.createElement('div');
     container.id = 'hotel-container';
-    container.style.position = 'absolute';
-    container.style.width = '100vw';
-    container.style.height = '20vh';
-    container.style.bottom = '0';
     return container;
   }
 
   private createHotels(): void {
     const hotelPositions = [
-      { id: 'hotel1', left: '0' },
-      { id: 'hotel2', left: '25vw' },
-      { id: 'hotel3', left: '50vw' },
-      { id: 'hotel4', right: '0vw' },
+      { id: 'hotel1' },
+      { id: 'hotel2' },
+      { id: 'hotel3' },
+      { id: 'hotel4' },
     ];
 
-    hotelPositions.forEach(({ id, left, right }) => {
+    hotelPositions.forEach(({ id }) => {
       const img = document.createElement('img');
       img.id = id;
       img.src = HOTEL_IMAGES[id as keyof typeof HOTEL_IMAGES];
-      img.style.position = 'absolute';
-      img.style.height = '20vh';
-      img.style.width = 'auto';
       img.setAttribute('alt', `${id} building`);
       
-      if (left) {
-        img.style.left = left;
-      } else if (right) {
-        img.style.right = right;
-      }
-
       this.containerElement.appendChild(img);
     });
   }

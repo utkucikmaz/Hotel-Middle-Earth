@@ -104,32 +104,27 @@ body {
 }
 
 #hotel-container {
-  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
   width: 100vw;
   height: 20vh;
+  position: absolute;
   bottom: 0;
+  left: 0;
+  padding-bottom: 0;
 }
 
 #hotel1,
 #hotel2,
 #hotel3,
 #hotel4 {
-  position: absolute;
-  height: 20vh;
+  position: relative;
+  height: 100%;
   width: auto;
-}
-
-#hotel1 {
-  left: 0;
-}
-#hotel2 {
-  left: 25vw;
-}
-#hotel3 {
-  left: 50vw;
-}
-#hotel4 {
-  right: 0vw;
+  bottom: auto;
+  left: auto;
+  right: auto;
 }
 
 .elf,
@@ -781,6 +776,11 @@ body {
   cursor: pointer;
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
   line-height: 5vh;
   font-weight: 600;
 }
@@ -940,7 +940,8 @@ canvas {
   .back-button,
   #backButton {
     width: 50vw;
-    left: 25vw;
+    left: 50%;
+    ;
   }
 }
 
@@ -959,5 +960,120 @@ input:focus {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+#scoreDisplay {
+  top: 1vh;
+}
+
+#healthDisplay {
+  top: 1vh;
+  left: 0;
+}
+
+#ringDisplay {
+  position: absolute;
+  top: 1vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+/* RESPONSIVE DESIGN FOR MOBILE */
+@media screen and (max-width: 768px) {
+  #scoreDisplay {
+    font-size: 3.5vw;
+    padding: 6px 12px;
+    right: 5px;
+    margin: 5px;
+    top: 5px;
+  }
+
+  #healthDisplay {
+    font-size: 3.5vw;
+    padding: 6px 12px;
+    left: 5px;
+    margin: 5px;
+    top: 5px;
+  }
+
+  #heart-image {
+    height: 2.5vh;
+  }
+  
+  #hudSettingsBtn {
+      right: 25vw !important;
+      top: 8px !important;
+      width: 35px !important;
+      height: 35px !important;
+  }
+
+  #ringDisplay {
+    top: 5vh;
+  }
+  
+  #ring-image {
+      width: 8vw;
+  }
+
+  #hotel-container {
+    height: 15vh;
+  }
+
+  #hotel1, #hotel2, #hotel3, #hotel4 {
+    height: 100%;
+    width: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+  }
+
+  .elf, .human, .org, .goblin, .gandalf, .sauron, .gollum {
+      height: 10vh;
+  }
+  
+  .human { height: 12vh; }
+  .gollum { height: 8vh; }
+
+  /* Menu & UI Adjustments - Compact */
+  #title {
+    font-size: 10vw;
+    margin-bottom: 3vh;
+  }
+
+  .submit-btn {
+    width: 70vw;
+    height: 6vh;
+    font-size: 1.2rem;
+    min-height: 40px;
+  }
+
+  #nameInput {
+    width: 70vw;
+    height: 5vh;
+    font-size: 1.2rem;
+    min-height: 35px;
+  }
+
+  .menu-buttons {
+     flex-direction: column;
+     gap: 1vh;
+  }
+
+  #instructions-button, #top-scores-button {
+      width: 70vw;
+      max-width: none;
+      height: 5vh;
+      min-height: 35px;
+  }
+  
+  .game-over, .sauron-class, .gandalf-class {
+     font-size: 4vw; 
+     padding: 10px;
+  }
+  
+  #sauron-won, #gandalf-won, .over-gif {
+      max-width: 60vw;
   }
 }

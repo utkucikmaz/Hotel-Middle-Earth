@@ -67,18 +67,37 @@ export class Visitor {
   }
 
   setTargetPosition(isDarkMode: boolean): void {
-    const positions: Record<VisitorType, { good: Position; evil: Position }> = {
-      human: { good: { x: 55, y: 0 }, evil: { x: 0, y: 0 } },
-      elf: { good: { x: 88, y: 0 }, evil: { x: 22, y: 0 } },
-      goblin: { good: { x: 55, y: 0 }, evil: { x: 0, y: 0 } },
-      org: { good: { x: 88, y: 0 }, evil: { x: 25, y: 0 } },
-      sauron: { good: { x: 25, y: 0 }, evil: { x: 25, y: 0 } },
-      gandalf: { good: { x: 55, y: 0 }, evil: { x: 55, y: 0 } },
-      ring: { good: { x: 58, y: 5 }, evil: { x: 28, y: 5 } },
-      gollum: { good: { x: 55, y: 0 }, evil: { x: 25, y: 0 } },
-    };
+    // Map visitor types to specific hotels (1-indexed for ID) based on alignment (Good/Evil)
+    // Evil/Dark Mode: Hotels 1 & 2 (Left side)
+    // Good/Light Mode: Hotels 3 & 4 (Right side)
+    
+    let targetHotelId = 'hotel1';
 
-    this.targetPosition = isDarkMode ? positions[this.type].evil : positions[this.type].good;
+    if (isDarkMode) {
+      if (['human', 'goblin', 'ring'].includes(this.type)) {
+        targetHotelId = 'hotel1';
+      } else {
+        targetHotelId = 'hotel2';
+      }
+    } else {
+      if (['human', 'goblin', 'gandalf'].includes(this.type)) {
+        targetHotelId = 'hotel3';
+      } else {
+        targetHotelId = 'hotel4';
+      }
+    }
+
+    const hotelElement = document.getElementById(targetHotelId);
+    let targetX = 50; // default center
+    
+    if (hotelElement) {
+        const rect = hotelElement.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        // Convert pixel back to vw for consistency with existing movement logic
+        targetX = (centerX / window.innerWidth) * 100;
+    }
+
+    this.targetPosition = { x: targetX, y: 5 };
   }
 
   startMoving(isDarkMode: boolean): void {

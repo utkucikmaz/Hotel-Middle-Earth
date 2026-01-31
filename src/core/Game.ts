@@ -133,7 +133,7 @@ export class Game {
     this.parentElement.style.backgroundImage = `url('${bcgImg}')`;
 
     this.hotel = new Hotel(this.parentElement);
-    this.hud = new HUD(this.parentElement);
+    this.hud = new HUD(this.parentElement, () => this.pauseGame());
 
     this.updateHUD();
     this.audioService.play('background');
